@@ -116,7 +116,6 @@ public class level1 extends JFrame{
 
     private void goToLevel2(){
         level2 level2 = new level2(frame);
-        level2.setVisible(true);
         this.dispose();
     }
 
