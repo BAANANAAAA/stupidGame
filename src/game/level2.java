@@ -6,10 +6,19 @@ import java.awt.*;
 class level2 extends JFrame {
     private JFrame frame;
     private ImageIcon imageIcon;
+    private Player player;
 
-    public level2(JFrame mainFrame) {
+    public level2(JFrame mainFrame, Player player) {
         this.frame = mainFrame;
-        initUI();
+        this.player = player;
+        if(!player.isLevelExplored(2)){
+            player.markLevelExplored(2);
+            initUI();
+        }
+        else {
+            // TODO: create visited level2
+            initUI();
+        }
     }
 
     private void initUI() {
@@ -40,7 +49,7 @@ class level2 extends JFrame {
     }
 
     private void backToLevel1() {
-        level1 level1 = new level1(frame);
+        level1 level1 = new level1(frame, player);
         this.dispose();
     }
 }

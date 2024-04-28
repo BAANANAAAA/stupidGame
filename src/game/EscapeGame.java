@@ -7,11 +7,14 @@ import java.awt.event.ActionListener;
 
 public class EscapeGame {
     private JFrame mainFrame;
+    private Player player;
 
     public EscapeGame() {
         mainFrame = new JFrame("Escape!");
         mainFrame.setSize(800, 600);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // initialize player
+        player = new Player();
         showStartScreen();
     }
 
@@ -30,7 +33,7 @@ public class EscapeGame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new level1(mainFrame);
+                new level1(mainFrame, player);
             }
         });
 
@@ -73,7 +76,7 @@ public class EscapeGame {
     }
 
     public static void main(String[] args) {
-        new EscapeGame();
+        EscapeGame game = new EscapeGame();
     }
 }
 

@@ -10,12 +10,22 @@ public class level1 extends JFrame{
     private JPanel vasePanel; // Panel to display the vase image
     private JLabel hintLabel; // Label to display hints at the bottom of the screen
     private final String correctPassword = "secret"; // Correct password to proceed to level2
+    private Player player;
 
-    public level1(JFrame frame) {
+    public level1(JFrame frame, Player player) {
         this.frame = frame;
+        this.player = player;
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setupGameArea();
+        if(!player.isLevelExplored(1)){
+            player.markLevelExplored(1);
+            setupGameArea();
+        }
+        else {
+            // TODO: create visited level1
+            setupGameArea();
+        }
+
         frame.setVisible(true);
     }
 
@@ -115,7 +125,7 @@ public class level1 extends JFrame{
     }
 
     private void goToLevel2(){
-        level2 level2 = new level2(frame);
+        level2 level2 = new level2(frame, player);
         this.dispose();
     }
 
