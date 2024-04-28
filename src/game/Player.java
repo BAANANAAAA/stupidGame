@@ -6,6 +6,7 @@ import java.util.Set;
 public class Player {
     private Set<Integer> exploredLevels; // 存储已探索的关卡编号
     private Set<Integer> Item;
+    private Set<Integer> UsedItem;
 
 
     public Player() {
