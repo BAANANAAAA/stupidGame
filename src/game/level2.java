@@ -3,34 +3,21 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 
-class level2 extends JFrame {
-    private JFrame frame;
-    private ImageIcon imageIcon;
-    private Player player;
+class level2 extends Level {
 
     public level2(JFrame mainFrame, Player player) {
-        this.frame = mainFrame;
-        this.player = player;
-        if(!player.isLevelExplored(2)){
-            player.markLevelExplored(2);
-            initUI();
-        }
-        else {
-            // TODO: create visited level2
-            initUI();
-        }
+//        this.frame = mainFrame;
+        super(mainFrame, player);
+        init();
     }
 
-    private void initUI() {
-        this.frame.setTitle("Level 2");
-        this.frame.getContentPane().removeAll(); // 清除之前的内容
-
+    public void init() {
         // 设置LayeredPane
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(frame.getSize()); // 设定与frame相同的尺寸
 
         // 加载并设置图片标签
-        imageIcon = new ImageIcon("figs/level2.PNG"); // 加载图片
+        ImageIcon imageIcon = new ImageIcon("figs/level2.PNG"); // 加载图片
         JLabel label = new JLabel(imageIcon);
         label.setBounds(0, 0, frame.getWidth(), frame.getHeight()); // 覆盖整个窗口
         layeredPane.add(label, Integer.valueOf(1)); // 添加至低层
@@ -42,14 +29,9 @@ class level2 extends JFrame {
 
         // 添加监听器
         backButton.addActionListener(e -> backToLevel1());
-
-        frame.setContentPane(layeredPane);
-        frame.revalidate(); // 重新验证窗体的组件
-        frame.repaint(); // 重绘窗体
     }
 
     private void backToLevel1() {
-        level1 level1 = new level1(frame, player);
-        this.dispose();
+        player.GoTo("level1");
     }
 }
