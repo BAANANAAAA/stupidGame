@@ -1,15 +1,14 @@
 package game;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class level2 extends Level {
+public class Level2 extends Level {
 
-    public level2(JFrame mainFrame, Player player) {
+    public Level2(JFrame mainFrame, Player player) {
 //        this.frame = mainFrame;
         super(mainFrame, player);
         init();
-        player.setMyLevel2(this);
+        player.insertLevel("Level2", this);
     }
 
     public void init() {

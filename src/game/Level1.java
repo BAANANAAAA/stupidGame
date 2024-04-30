@@ -5,17 +5,17 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class level1 extends Level {
+public class Level1 extends Level {
 
     private JPanel vasePanel; // Panel to display the vase image
     private final String correctPassword = "secret"; // Correct password to proceed to level2
     private String cookie = "";
 
-    public level1(JFrame mainFrame, Player player) {
+    public Level1(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         this.player = player;
         init();
-        player.setMyLevel1(this);
+        player.insertLevel("Level1", this);
     }
 
     public void init() {
@@ -98,7 +98,7 @@ public class level1 extends Level {
         vasePanel.add(vaseLabel, BorderLayout.CENTER);
         vasePanel.add(inputPanel, BorderLayout.SOUTH);
 
-        // Add the vase panel to the frame's layered pane so it can float over other components
+        // Add the vase panel to the frame's layered pane, so it can float over other components
         frame.getLayeredPane().add(vasePanel, JLayeredPane.MODAL_LAYER);
         frame.getLayeredPane().moveToFront(vasePanel);
         frame.revalidate();

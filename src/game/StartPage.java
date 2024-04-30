@@ -11,7 +11,7 @@ public class StartPage extends Level {
         super(mainFrame, player);
         init();
         System.out.println("StartPage Constructed");
-        player.setMyStartPage(this);
+        player.insertLevel("StartPage", this);
         player.GoTo("StartPage");
     }
 
@@ -55,7 +55,7 @@ public class StartPage extends Level {
 }
 
 class BackgroundPanel extends JPanel {
-    private ImageIcon imageIcon;
+    private final ImageIcon imageIcon;
 
     public BackgroundPanel() {
         imageIcon = new ImageIcon("figs/start.PNG"); // 加载图片
