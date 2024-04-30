@@ -1,25 +1,63 @@
 package game;
 
+import javax.swing.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Player {
-    private Set<Integer> exploredLevels; // 存储已探索的关卡编号
-    private Set<Integer> Item;
-    private Set<Integer> UsedItem;
 
+    private final JFrame gameFrame;
+    private Level curLevel;
 
-    public Player() {
-        this.exploredLevels = new HashSet<>(); // 初始化时没有关卡被探索
+    private static final HashSet<String> levelNames = new HashSet<>(Set.of("StartPage", "Level1", "Level2")); // 所有合法的level名，用于player.goto
+    private final HashMap<String, Level> accessibleLevels = new HashMap<>();
+
+    public Player(JFrame _frame) {
+        gameFrame = _frame;
+        System.out.println("player constructed");
     }
 
-    // 标记关卡为已探索
-    public void markLevelExplored(int level) {
-        exploredLevels.add(level);
+    public void insertLevel(String dest, Level _level) {
+        // 总之也要先检查是否合法
+        if (!levelNames.contains(dest)) {
+            System.err.println("GoTo destination does not exist");
+            System.exit(1);
+        }
+        // 这个函数只会在首次进入level时被构造函数调用
+        accessibleLevels.put(dest, _level);
     }
 
-    // 检查某个关卡是否已被探索
-    public boolean isLevelExplored(int level) {
-        return exploredLevels.contains(level);
+    public void GoTo(String dest) {
+        // 检查level名是否合法
+        if (!levelNames.contains(dest)) {
+            System.err.println("GoTo destination does not exist");
+            System.exit(1);
+        }
+        if (!accessibleLevels.containsKey(dest)) {
+            // 如果不存在，新建一个实例
+            try {
+                Class<?> clazz = Class.forName("game." + dest);
+                Constructor<?> constructor = clazz.getConstructor(JFrame.class, Player.class);
+                curLevel = (Level) constructor.newInstance(gameFrame, this);
+            } catch (ClassNotFoundException | NoSuchMethodException e) {
+                System.err.println("??" + e.getMessage());
+                System.exit(1);
+            } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
+                System.err.println("newInstance" + e.getMessage());
+                System.exit(1);
+            }
+        } else {
+            curLevel = accessibleLevels.get(dest);
+        }
+
+        gameFrame.setContentPane(Objects.requireNonNull(curLevel).getLayeredPane()); // 我超 这么智能
+        gameFrame.pack();
+        gameFrame.revalidate();
+        gameFrame.repaint();
+        System.out.println("goto" + dest);
     }
 }
