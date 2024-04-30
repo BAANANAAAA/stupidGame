@@ -5,7 +5,6 @@ import javax.swing.*;
 abstract public class Level extends JFrame {
     public JFrame frame; // 所有level共享一个显示frame
     public JLayeredPane layeredPane; // 保存所有当前level的内容
-    public ImageIcon imageIcon; // 背景图片
     public Player player;
 
     public Level(JFrame mainFrame, Player player) {

@@ -11,6 +11,6 @@ class Main {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
         Player player = new Player(mainFrame);
-        StartPage sp = new StartPage(mainFrame, player);
+        new StartPage(mainFrame, player);
     }
 }
