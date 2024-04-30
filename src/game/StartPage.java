@@ -10,6 +10,9 @@ public class StartPage extends Level {
     public StartPage(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         init();
+        System.out.println("StartPage Constructed");
+        player.setMyStartPage(this);
+        player.GoTo("StartPage");
     }
 
     @Override
@@ -30,7 +33,7 @@ public class StartPage extends Level {
             public void actionPerformed(ActionEvent e) {
 //                new level1(mainFrame, player);
                 layeredPane.setVisible(false);
-                player.GoTo("level1");
+                player.GoTo("Level1");
             }
         });
 

@@ -3,17 +3,18 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 
-class level2 extends Level {
+public class level2 extends Level {
 
     public level2(JFrame mainFrame, Player player) {
 //        this.frame = mainFrame;
         super(mainFrame, player);
         init();
+        player.setMyLevel2(this);
     }
 
     public void init() {
         // 设置LayeredPane
-        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(frame.getSize()); // 设定与frame相同的尺寸
 
         // 加载并设置图片标签
@@ -32,6 +33,6 @@ class level2 extends Level {
     }
 
     private void backToLevel1() {
-        player.GoTo("level1");
+        player.GoTo("Level1");
     }
 }

@@ -6,23 +6,22 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class level1 extends Level {
-    private JFrame frame;
-    private Player player;
-    public JLayeredPane layeredPane;
 
     private JPanel vasePanel; // Panel to display the vase image
     private final String correctPassword = "secret"; // Correct password to proceed to level2
+    private String cookie = "";
 
     public level1(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         this.player = player;
         init();
+        player.setMyLevel1(this);
     }
 
     public void init() {
         // Load the background image
         ImageIcon backgroundImage = new ImageIcon("figs/level1.PNG");
-        JPanel panel = new JPanel() {
+        layeredPane = new JLayeredPane() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -30,8 +29,9 @@ public class level1 extends Level {
                 g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
             }
         };
+        layeredPane.setPreferredSize(frame.getSize());
 
-        panel.setLayout(new BorderLayout());
+        layeredPane.setLayout(new BorderLayout());
 
         // Setup hint label but don't add it yet
         // Label to display hints at the bottom of the screen
@@ -40,7 +40,7 @@ public class level1 extends Level {
         hintLabel.setBackground(Color.WHITE);
         hintLabel.setPreferredSize(new Dimension(frame.getWidth(), 30));
 
-        panel.addMouseListener(new MouseAdapter() {
+        layeredPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Assuming the clickable area is in the center of the screen
@@ -115,8 +115,9 @@ public class level1 extends Level {
         if (enteredPassword.equals(correctPassword)) {
             // Correct password entered, proceed to level2
             closeVasePanel();
-            JOptionPane.showMessageDialog(frame, "Yes, indeed...", "Wow", JOptionPane.WARNING_MESSAGE);
-            player.GoTo("level2");
+            JOptionPane.showMessageDialog(frame, "Yes, indeed..." + cookie, "Wow", JOptionPane.WARNING_MESSAGE);
+            cookie += "a";
+            player.GoTo("Level2");
         } else {
             // Incorrect password, show error message
             JOptionPane.showMessageDialog(frame, "Incorrect password!", "Error", JOptionPane.ERROR_MESSAGE);
