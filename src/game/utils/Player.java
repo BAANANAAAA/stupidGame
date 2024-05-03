@@ -4,7 +4,6 @@ import game.levels.Level;
 
 import javax.swing.*;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
@@ -39,27 +38,29 @@ public class Player {
             System.err.println("GoTo destination does not exist");
             System.exit(1);
         }
+        updateLevel(dest);
+        System.out.println("goto " + dest);
+    }
+
+    private void updateLevel(String dest) {
         if (!accessibleLevels.containsKey(dest)) {
             // 如果不存在，新建一个实例
             try {
                 Class<?> clazz = Class.forName("game.levels." + dest);
                 Constructor<?> constructor = clazz.getConstructor(JFrame.class, Player.class);
                 curLevel = (Level) constructor.newInstance(gameFrame, this);
-            } catch (ClassNotFoundException | NoSuchMethodException e) {
-                System.err.println("??" + e.getMessage());
-                System.exit(1);
-            } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
-                System.err.println("newInstance" + e.getMessage());
+                accessibleLevels.put(dest, curLevel);
+            } catch (Exception e) {
+                System.err.println("Error creating level instance: " + e.getMessage());
                 System.exit(1);
             }
         } else {
             curLevel = accessibleLevels.get(dest);
         }
 
-        gameFrame.setContentPane(Objects.requireNonNull(curLevel).getLayeredPane()); // 我超 这么智能
+        gameFrame.setContentPane(Objects.requireNonNull(curLevel.getLayeredPane()));
         gameFrame.pack();
         gameFrame.revalidate();
         gameFrame.repaint();
-        System.out.println("goto" + dest);
     }
 }
