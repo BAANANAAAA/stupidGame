@@ -1,5 +1,5 @@
-import game.Player;
-import game.StartPage;
+import game.utils.Player;
+import game.levels.StartPage;
 
 import javax.swing.*;
 
