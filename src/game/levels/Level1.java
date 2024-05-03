@@ -5,6 +5,8 @@ import game.utils.SoundPlayer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -19,6 +21,16 @@ public class Level1 extends Level {
         this.player = player;
         init();
         player.insertLevel("Level1", this);
+
+        // 添加按下ESC键时显示菜单的功能
+        layeredPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "showMenu");
+        layeredPane.getActionMap().put("showMenu", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMenu();
+            }
+        });
+
     }
 
     public void init() {
@@ -54,7 +66,17 @@ public class Level1 extends Level {
             }
         });
 
-        SoundPlayer.playSound("resources/sounds/horror_bg_0.wav");
+        SoundPlayer.playSound("resources/sounds/horror_bg_0.wav", 200000);
+    }
+
+    @Override
+    void restartLevel() {
+        // 重置游戏状态
+        // ...
+        player.GoTo("Level1");
+        // 重新开始游戏循环
+        // ...
+        System.out.println("Try to set restart here");
     }
 
     private void showVaseImage() {
@@ -117,7 +139,7 @@ public class Level1 extends Level {
     }
 
     private void verifyPassword(String enteredPassword) {
-        SoundPlayer.playSound("resources/sounds/click_0.wav");
+        SoundPlayer.playSound("resources/sounds/click_0.wav", 0);
         if (enteredPassword.equals(correctPassword)) {
             // Correct password entered, proceed to level2
             closeVasePanel();

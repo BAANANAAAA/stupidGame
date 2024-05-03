@@ -54,6 +54,15 @@ public class StartPage extends Level {
         layeredPane.add(startButton, Integer.valueOf(2)); // 将按钮加入更高层
         layeredPane.add(exitButton, Integer.valueOf(2)); // 将按钮加入更高层
     }
+
+    @Override
+    void restartLevel() {
+        // 重置游戏状态
+        // ...
+        // 重新开始游戏循环
+        // ...
+        System.out.println("Try to set restart here. Current Not Implemented.");
+    }
 }
 
 class BackgroundPanel extends JPanel {

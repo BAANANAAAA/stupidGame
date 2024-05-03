@@ -33,6 +33,16 @@ public class Level2 extends Level {
         backButton.addActionListener(e -> backToLevel1());
     }
 
+    @Override
+    void restartLevel() {
+        // 重置游戏状态
+        // ...
+        player.GoTo("Level2");
+        // 重新开始游戏循环
+        // ...
+        System.out.println("Try to set restart here");
+    }
+
     private void backToLevel1() {
         player.GoTo("Level1");
     }
