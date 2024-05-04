@@ -1,6 +1,9 @@
 package game;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -13,8 +16,9 @@ public class Player {
     private final JFrame gameFrame;
     private Level curLevel;
 
-    private static final HashSet<String> levelNames = new HashSet<>(Set.of("StartPage", "Level1", "Level2")); // 所有合法的level名，用于player.goto
+    private static final HashSet<String> levelNames = new HashSet<>(Set.of("StartPage", "Level1", "Level2", "Level3")); // 所有合法的level名，用于player.goto
     private final HashMap<String, Level> accessibleLevels = new HashMap<>();
+    private final HashSet<Integer> items = new HashSet<>();
 
     public Player(JFrame _frame) {
         gameFrame = _frame;
@@ -59,5 +63,38 @@ public class Player {
         gameFrame.revalidate();
         gameFrame.repaint();
         System.out.println("goto" + dest);
+    }
+
+    public void addItemToPackage(int id) {
+        items.add(id);
+    }
+
+    public boolean hasItem(int id){
+        return items.contains(id);
+    }
+
+    public void showTemporaryMessage(String message) {
+        JLayeredPane layeredPane = curLevel.getLayeredPane(); // Assuming curLevel is never null when this is called
+        JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
+        messageLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        messageLabel.setOpaque(true);
+        messageLabel.setBackground(Color.WHITE);
+        messageLabel.setBounds((gameFrame.getWidth() - 600) / 2, gameFrame.getHeight() - 100, 600, 50);
+        layeredPane.add(messageLabel, 2, 0);
+
+        messageLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                layeredPane.remove(messageLabel);
+                layeredPane.repaint();
+            }
+        });
+
+        Timer timer = new Timer(4000, e -> {
+            layeredPane.remove(messageLabel);
+            layeredPane.repaint();
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 }
