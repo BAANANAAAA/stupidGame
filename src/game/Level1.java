@@ -25,7 +25,6 @@ public class Level1 extends Level {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                //                // Draw the background image to cover the entire panel
                 g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
             }
         };
@@ -39,6 +38,7 @@ public class Level1 extends Level {
         hintLabel.setOpaque(true);
         hintLabel.setBackground(Color.WHITE);
         hintLabel.setPreferredSize(new Dimension(frame.getWidth(), 30));
+        hintLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         layeredPane.addMouseListener(new MouseAdapter() {
             @Override

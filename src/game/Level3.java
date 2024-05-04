@@ -23,6 +23,9 @@ public class Level3 extends Level {
         layeredPane.add(label, Integer.valueOf(1)); // 添加至低层
 
         createSofaHintArea();
+        createMirrorArea();
+        JLabel hammerLabel = getHammerLabel();
+        layeredPane.add(hammerLabel, Integer.valueOf(2)); // 添加至中层
     }
 
     private void createSofaHintArea() {
@@ -46,7 +49,56 @@ public class Level3 extends Level {
         layeredPane.add(sofaArea, Integer.valueOf(2)); // Add the clickable area above the background
     }
 
+    private void createMirrorArea() {
+        int mirrorWidth = 200; // Width of the clickable area
+        int mirrorHeight = 200; // Height of the clickable area
+        int sofaX = frame.getWidth() - mirrorWidth - 550; // Position X (from right minus width of the area and some margin)
+        int sofaY = frame.getHeight() - mirrorHeight - 200; // Position Y (from bottom minus height of the area and some margin)
+
+        JLabel mirrorArea = new JLabel();
+        mirrorArea.setBounds(sofaX, sofaY, mirrorWidth, mirrorHeight);
+        mirrorArea.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change the cursor to indicate clickable area
+
+        // Add mouse listener to show hint when clicked
+        mirrorArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                verifyHammer();
+            }
+        });
+
+        layeredPane.add(mirrorArea, Integer.valueOf(2)); // Add the clickable area above the background
+    }
+
+    private JLabel getHammerLabel() {
+        ImageIcon keyIcon = new ImageIcon("figs/hammer0.PNG");
+        Image keyImage = keyIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // 调整大小为50x50
+        keyIcon = new ImageIcon(keyImage);
+        JLabel keyLabel = new JLabel(keyIcon);
+        keyLabel.setBounds(keyIcon.getIconWidth() / 2,
+                frame.getHeight() / 2 - keyIcon.getIconHeight() / 2,
+                keyIcon.getIconWidth(), keyIcon.getIconHeight());
+        keyLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(3); // 添加钥匙到玩家物品列表
+                player.showTemporaryMessage("An exquisite hammer..");
+                layeredPane.remove(keyLabel); // 移除钥匙标签
+                layeredPane.repaint(); // 重绘界面
+            }
+        });
+        return keyLabel;
+    }
+
+    private void verifyHammer() {
+        if (player.hasItem(3)) {
+            JOptionPane.showMessageDialog(frame, "Oh! You broke something...!");
+            player.GoTo("Level4");
+        } else {
+            player.showTemporaryMessage("Nothing happened..."); // Show message if the key doesn't exist
+        }
+    }
+
     private void showHint() {
-        JOptionPane.showMessageDialog(frame, "Look behind the mirror", "Hint", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame, "Look in the shadow of mirror", "Hint", JOptionPane.INFORMATION_MESSAGE);
     }
 }
