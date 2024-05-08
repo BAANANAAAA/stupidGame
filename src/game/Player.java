@@ -62,10 +62,9 @@ public class Player {
         } else {
             curLevel = accessibleLevels.get(dest);
         }
-        curLevel.setVisible(true);
+        Objects.requireNonNull(curLevel).getLayeredPane().setVisible(true);
 
-//        gameFrame.setContentPane(Objects.requireNonNull(curLevel).getLayeredPane()); // 我超 这么智能
-        gameFrame.pack();
+//        gameFrame.pack();
         gameFrame.revalidate();
         gameFrame.repaint();
         System.out.println("goto" + dest);
