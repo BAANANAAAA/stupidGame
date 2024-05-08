@@ -14,12 +14,12 @@ public class Level3 extends Level {
     }
 
     public void init() {
-        layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(frame.getSize()); // 设定与frame相同的尺寸
+//        layeredPane = new JLayeredPane();
+//        layeredPane.setPreferredSize(frame.getSize()); // 设定与frame相同的尺寸
 
         ImageIcon imageIcon = new ImageIcon("figs/level3.PNG"); // 加载图片
         JLabel label = new JLabel(imageIcon);
-        label.setBounds(0, 0, frame.getWidth(), frame.getHeight()); // 覆盖整个窗口
+        label.setBounds(0, 0, contentWidth, contentHeight); // 覆盖整个窗口
         layeredPane.add(label, Integer.valueOf(1)); // 添加至低层
 
         createSofaHintArea();
@@ -31,8 +31,8 @@ public class Level3 extends Level {
     private void createSofaHintArea() {
         int sofaWidth = 100; // Width of the clickable area
         int sofaHeight = 50; // Height of the clickable area
-        int sofaX = frame.getWidth() - sofaWidth - 30; // Position X (from right minus width of the area and some margin)
-        int sofaY = frame.getHeight() - sofaHeight - 30; // Position Y (from bottom minus height of the area and some margin)
+        int sofaX = contentWidth - sofaWidth - 30; // Position X (from right minus width of the area and some margin)
+        int sofaY = contentHeight - sofaHeight - 30; // Position Y (from bottom minus height of the area and some margin)
 
         JLabel sofaArea = new JLabel();
         sofaArea.setBounds(sofaX, sofaY, sofaWidth, sofaHeight);
@@ -52,8 +52,8 @@ public class Level3 extends Level {
     private void createMirrorArea() {
         int mirrorWidth = 200; // Width of the clickable area
         int mirrorHeight = 200; // Height of the clickable area
-        int sofaX = frame.getWidth() - mirrorWidth - 550; // Position X (from right minus width of the area and some margin)
-        int sofaY = frame.getHeight() - mirrorHeight - 200; // Position Y (from bottom minus height of the area and some margin)
+        int sofaX = contentWidth - mirrorWidth - 550; // Position X (from right minus width of the area and some margin)
+        int sofaY = contentHeight - mirrorHeight - 200; // Position Y (from bottom minus height of the area and some margin)
 
         JLabel mirrorArea = new JLabel();
         mirrorArea.setBounds(sofaX, sofaY, mirrorWidth, mirrorHeight);
@@ -76,7 +76,7 @@ public class Level3 extends Level {
         keyIcon = new ImageIcon(keyImage);
         JLabel keyLabel = new JLabel(keyIcon);
         keyLabel.setBounds(keyIcon.getIconWidth() / 2,
-                frame.getHeight() / 2 - keyIcon.getIconHeight() / 2,
+                contentHeight / 2 - keyIcon.getIconHeight() / 2,
                 keyIcon.getIconWidth(), keyIcon.getIconHeight());
         keyLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {

@@ -15,13 +15,13 @@ public class Level2 extends Level {
 
     public void init() {
         // 设置LayeredPane
-        layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(frame.getSize()); // 设定与frame相同的尺寸
+//        layeredPane = new JLayeredPane();
+//        layeredPane.setPreferredSize(frame.getSize()); // 设定与frame相同的尺寸
 
         // 加载并设置图片标签
         ImageIcon imageIcon = new ImageIcon("figs/level2.PNG"); // 加载图片
         JLabel label = new JLabel(imageIcon);
-        label.setBounds(0, 0, frame.getWidth(), frame.getHeight()); // 覆盖整个窗口
+        label.setBounds(0, 0, contentWidth, contentHeight); // 覆盖整个窗口
         layeredPane.add(label, Integer.valueOf(1)); // 添加至低层
 
         JLabel keyLabel = getjLabel();
@@ -29,7 +29,7 @@ public class Level2 extends Level {
 
         // 创建并设置返回按钮
         JButton backButton = new JButton("Back to Level 1");
-        backButton.setBounds(frame.getWidth() / 2 - 50, frame.getHeight() - 100, 150, 30); // 按钮位置
+        backButton.setBounds(contentWidth / 2 - 50, contentHeight - 100, 150, 30); // 按钮位置
         layeredPane.add(backButton, Integer.valueOf(2)); // 添加至高层
 
         // 添加监听器
@@ -37,7 +37,7 @@ public class Level2 extends Level {
 
         // 创建并设置一个透明的点击区域
         JLabel clickableArea = new JLabel();
-        clickableArea.setBounds(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 100, 200, 200);
+        clickableArea.setBounds(contentWidth / 2 - 100, contentHeight / 2 - 100, 200, 200);
         clickableArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
         clickableArea.addMouseListener(new MouseAdapter() {
             @Override
@@ -53,8 +53,8 @@ public class Level2 extends Level {
         Image keyImage = keyIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // 调整大小为50x50
         keyIcon = new ImageIcon(keyImage);
         JLabel keyLabel = new JLabel(keyIcon);
-        keyLabel.setBounds(frame.getWidth() / 2 - keyIcon.getIconWidth() / 2,
-                frame.getHeight() / 2 - keyIcon.getIconHeight() / 2,
+        keyLabel.setBounds(contentWidth / 2 - keyIcon.getIconWidth() / 2,
+                contentHeight / 2 - keyIcon.getIconHeight() / 2,
                 keyIcon.getIconWidth(), keyIcon.getIconHeight());
 
         // Set the cursor to hand cursor when mouse hovers over the JLabel

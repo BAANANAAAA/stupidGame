@@ -21,14 +21,17 @@ public class Level1 extends Level {
     public void init() {
         // Load the background image
         ImageIcon backgroundImage = new ImageIcon("figs/level1.PNG");
-        layeredPane = new JLayeredPane() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
-            }
-        };
-        layeredPane.setPreferredSize(frame.getSize());
+//        layeredPane = new JLayeredPane() {
+//            @Override
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+//            }
+//        };
+//        layeredPane.setPreferredSize(frame.getSize());
+        JLabel label = new JLabel(backgroundImage);
+        label.setBounds(0, 0, contentWidth, contentHeight);
+        layeredPane.add(label, Integer.valueOf(1));
 
         layeredPane.setLayout(new BorderLayout());
 
@@ -37,7 +40,7 @@ public class Level1 extends Level {
         JLabel hintLabel = new JLabel(" ", SwingConstants.CENTER);
         hintLabel.setOpaque(true);
         hintLabel.setBackground(Color.WHITE);
-        hintLabel.setPreferredSize(new Dimension(frame.getWidth(), 30));
+        hintLabel.setPreferredSize(new Dimension(contentWidth, 30));
         hintLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         layeredPane.addMouseListener(new MouseAdapter() {
@@ -71,7 +74,7 @@ public class Level1 extends Level {
         vasePanel.setBackground(Color.WHITE); // Set the background to white
 
         // Set the size and position of the panel (in the center of the frame)
-        vasePanel.setBounds((frame.getWidth() - width) / 2 - 10, (frame.getHeight() - height) / 2 - 10, width + 20, height + 60);
+        vasePanel.setBounds((contentWidth - width) / 2 - 10, (contentHeight - height) / 2 - 10, width + 20, height + 60);
 
         // Create the input field and submit button
         JTextField passwordField = new JTextField(10); // Field for entering password

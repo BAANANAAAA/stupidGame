@@ -18,11 +18,15 @@ public class StartPage extends Level {
     @Override
     void init() {
         // 创建 JLayeredPane 用于层次化布局
-        layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(800, 600));
+//        layeredPane = new JLayeredPane();
+//        layeredPane.setPreferredSize(new Dimension(800, 600));
         // 创建一个自定义 JPanel 来绘制背景图片
-        JPanel backgroundPanel = new BackgroundPanel();
-        backgroundPanel.setBounds(0, 0, 800, 600); // 设置和窗口一样的大小
+//        JPanel backgroundPanel = new BackgroundPanel();
+//        backgroundPanel.setBounds(0, 0, contentWidth, contentHeight); // 设置和窗口一样的大小
+
+        ImageIcon imageIcon = new ImageIcon("figs/start.PNG");
+        JLabel background = new JLabel(imageIcon);
+        background.setBounds(0, 0, contentWidth, contentHeight);
 
         // start button
         JButton startButton = new JButton("Start");
@@ -48,7 +52,8 @@ public class StartPage extends Level {
         });
 
         // 将背景面板和按钮添加到 JLayeredPane
-        layeredPane.add(backgroundPanel, Integer.valueOf(1)); // 将背景加入更低层
+//        layeredPane.add(backgroundPanel, Integer.valueOf(1)); // 将背景加入更低层
+        layeredPane.add(background, Integer.valueOf(1));
         layeredPane.add(startButton, Integer.valueOf(2)); // 将按钮加入更高层
         layeredPane.add(exitButton, Integer.valueOf(2)); // 将按钮加入更高层
     }
