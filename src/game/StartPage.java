@@ -36,7 +36,6 @@ public class StartPage extends Level {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                new level1(mainFrame, player);
-                layeredPane.setVisible(false);
                 player.GoTo("Level1");
             }
         });

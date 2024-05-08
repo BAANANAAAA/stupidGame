@@ -16,6 +16,7 @@ abstract public class Level extends JFrame {
         this.player = player;
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(contentWidth, contentHeight));
+        frame.add(layeredPane, BorderLayout.CENTER);
 //        init();
     }
 

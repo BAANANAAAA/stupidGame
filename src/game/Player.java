@@ -41,6 +41,11 @@ public class Player {
             System.err.println("GoTo destination does not exist");
             System.exit(1);
         }
+        // 不显示原来的内容
+        if (curLevel != null) {
+            Objects.requireNonNull(curLevel).getLayeredPane().setVisible(false);
+        }
+        // 更换curLevel
         if (!accessibleLevels.containsKey(dest)) {
             // 如果不存在，新建一个实例
             try {
@@ -57,8 +62,9 @@ public class Player {
         } else {
             curLevel = accessibleLevels.get(dest);
         }
+        curLevel.setVisible(true);
 
-        gameFrame.setContentPane(Objects.requireNonNull(curLevel).getLayeredPane()); // 我超 这么智能
+//        gameFrame.setContentPane(Objects.requireNonNull(curLevel).getLayeredPane()); // 我超 这么智能
         gameFrame.pack();
         gameFrame.revalidate();
         gameFrame.repaint();
