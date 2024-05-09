@@ -21,14 +21,6 @@ public class Level1 extends Level {
     public void init() {
         // Load the background image
         ImageIcon backgroundImage = new ImageIcon("figs/level1.PNG");
-//        layeredPane = new JLayeredPane() {
-//            @Override
-//            protected void paintComponent(Graphics g) {
-//                super.paintComponent(g);
-//                g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
-//            }
-//        };
-//        layeredPane.setPreferredSize(frame.getSize());
         JLabel label = new JLabel(backgroundImage);
         label.setBounds(0, 0, contentWidth, contentHeight);
         layeredPane.add(label, Integer.valueOf(1));

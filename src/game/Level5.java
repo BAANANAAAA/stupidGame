@@ -1,10 +1,14 @@
 package game;
 
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Level5 extends Level{
+public class Level5 extends Level {
+    private final ArrayList<Integer> userSequence = new ArrayList<>();
+    private final ArrayList<Integer> correctSequence = new ArrayList<>(Arrays.asList(1, 2, 1));
+
     public Level5(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         init();
@@ -17,13 +21,49 @@ public class Level5 extends Level{
         label.setBounds(0, 0, contentWidth, contentHeight);
         layeredPane.add(label, Integer.valueOf(1));
 
-        layeredPane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                player.GoTo("Level6");
-            }
-        });
+        // 创建左侧透明按钮
+        JButton leftButton = new JButton();
+        leftButton.setBounds(190, contentHeight / 2 - 50, 50, 50); // 设置按钮的位置和大小
+        leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        leftButton.setBorderPainted(false);
+        leftButton.setContentAreaFilled(false);
+        leftButton.setFocusPainted(false);
+        leftButton.setOpaque(false);
+        leftButton.addActionListener(e -> handleButtonPress(1)); // 处理按钮点击事件
+
+        // 创建右侧透明按钮
+        JButton rightButton = new JButton();
+        rightButton.setBounds(550, contentHeight / 2 - 50, 50, 50); // 设置按钮的位置和大小
+        rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        rightButton.setBorderPainted(false);
+        rightButton.setContentAreaFilled(false);
+        rightButton.setFocusPainted(false);
+        rightButton.setOpaque(false);
+        rightButton.addActionListener(e -> handleButtonPress(2)); // 处理按钮点击事件
+
+        JButton resetButton = new JButton();
+        resetButton.setBounds(contentWidth / 2 - 50, 270, 50, 50);
+        resetButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        resetButton.setBorderPainted(false);
+        resetButton.setContentAreaFilled(false);
+        resetButton.setFocusPainted(false);
+        resetButton.setOpaque(false);
+        resetButton.addActionListener(e -> resetSequence());
+
+        layeredPane.add(leftButton, Integer.valueOf(2));
+        layeredPane.add(rightButton, Integer.valueOf(2));
+        layeredPane.add(resetButton, Integer.valueOf(2));
     }
 
+    private void handleButtonPress(int buttonId) {
+        userSequence.add(buttonId);
+        if (userSequence.equals(correctSequence)) {
+            JOptionPane.showMessageDialog(layeredPane, "Some thing is open...");
+            userSequence.clear();
+        }
+    }
 
+    private void resetSequence() {
+        userSequence.clear();
+    }
 }
