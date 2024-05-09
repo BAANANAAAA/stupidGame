@@ -9,7 +9,7 @@ abstract public class Level extends JPanel {
     public Player player;
 
     public static final int contentWidth = 800;
-    public static final int contentHeight = 600;
+    public static final int contentHeight = 750;
 
     public Level(JFrame mainFrame, Player player) {
         this.frame = mainFrame;

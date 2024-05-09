@@ -44,6 +44,7 @@ public class Level2 extends Level {
         layeredPane.add(clickableArea, Integer.valueOf(2));
 
         getGreenGemLabel();
+        getBlueGemLabel();
     }
 
     private JLabel getjLabel() {
@@ -70,11 +71,11 @@ public class Level2 extends Level {
 
     private void getGreenGemLabel() {
         ImageIcon GreenGemIcon = new ImageIcon("figs/green_gem.PNG");
-        Image BlueGemImage = GreenGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        Image BlueGemImage = GreenGemIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         GreenGemIcon = new ImageIcon(BlueGemImage);
         JLabel GreenGemLabel = new JLabel(GreenGemIcon);
-        GreenGemLabel.setBounds(600,
-                230,
+        GreenGemLabel.setBounds(530,
+                295,
                 GreenGemIcon.getIconWidth(), GreenGemIcon.getIconHeight());
 
         GreenGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -88,6 +89,27 @@ public class Level2 extends Level {
         });
 
         layeredPane.add(GreenGemLabel, Integer.valueOf(2));
+    }
+
+    private void getBlueGemLabel() {
+        ImageIcon BlueGemIcon = new ImageIcon("figs/blue_gem.PNG");
+        Image BlueGemImage = BlueGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        BlueGemIcon = new ImageIcon(BlueGemImage);
+        JLabel BlueGemLabel = new JLabel(BlueGemIcon);
+        BlueGemLabel.setBounds(140, 500,
+                BlueGemIcon.getIconWidth(), BlueGemIcon.getIconHeight());
+
+        BlueGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        BlueGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(11);
+                player.showTemporaryMessage("So beautiful...");
+                layeredPane.remove(BlueGemLabel);
+                layeredPane.repaint();
+            }
+        });
+
+        layeredPane.add(BlueGemLabel, Integer.valueOf(2));
     }
 
 

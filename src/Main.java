@@ -8,7 +8,7 @@ class Main {
 
     public static void main(String[] args) {
         JFrame mainFrame = new JFrame();
-        mainFrame.setSize(1000, 600);
+        mainFrame.setSize(1000, 750);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
 

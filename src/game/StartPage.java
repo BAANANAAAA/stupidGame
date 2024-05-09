@@ -1,7 +1,6 @@
 package game;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,13 +16,6 @@ public class StartPage extends Level {
 
     @Override
     void init() {
-        // 创建 JLayeredPane 用于层次化布局
-//        layeredPane = new JLayeredPane();
-//        layeredPane.setPreferredSize(new Dimension(800, 600));
-        // 创建一个自定义 JPanel 来绘制背景图片
-//        JPanel backgroundPanel = new BackgroundPanel();
-//        backgroundPanel.setBounds(0, 0, contentWidth, contentHeight); // 设置和窗口一样的大小
-
         ImageIcon imageIcon = new ImageIcon("figs/start.PNG");
         JLabel background = new JLabel(imageIcon);
         background.setBounds(0, 0, contentWidth, contentHeight);
@@ -55,21 +47,5 @@ public class StartPage extends Level {
         layeredPane.add(background, Integer.valueOf(1));
         layeredPane.add(startButton, Integer.valueOf(2)); // 将按钮加入更高层
         layeredPane.add(exitButton, Integer.valueOf(2)); // 将按钮加入更高层
-    }
-}
-
-class BackgroundPanel extends JPanel {
-    private final ImageIcon imageIcon;
-
-    public BackgroundPanel() {
-        imageIcon = new ImageIcon("figs/start.PNG"); // 加载图片
-        this.setOpaque(true);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // 绘制图片以覆盖整个面板
-        g.drawImage(imageIcon.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
     }
 }

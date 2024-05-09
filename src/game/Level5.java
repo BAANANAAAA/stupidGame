@@ -21,7 +21,7 @@ public class Level5 extends Level {
         label.setBounds(0, 0, contentWidth, contentHeight);
         layeredPane.add(label, Integer.valueOf(1));
 
-        // 创建左侧透明按钮
+        // left button
         JButton leftButton = new JButton();
         leftButton.setBounds(190, contentHeight / 2 - 50, 50, 50);
         leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -31,7 +31,7 @@ public class Level5 extends Level {
         leftButton.setOpaque(false);
         leftButton.addActionListener(e -> handleButtonPress(1));
 
-        // 创建右侧透明按钮
+        // right button
         JButton rightButton = new JButton();
         rightButton.setBounds(550, contentHeight / 2 - 50, 50, 50);
         rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -58,7 +58,7 @@ public class Level5 extends Level {
     private void handleButtonPress(int buttonId) {
         userSequence.add(buttonId);
         if (userSequence.equals(correctSequence)) {
-            JOptionPane.showMessageDialog(layeredPane, "Some thing is open...");
+            JOptionPane.showMessageDialog(layeredPane, "Something is open...");
             userSequence.clear();
         }
     }

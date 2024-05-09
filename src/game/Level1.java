@@ -47,11 +47,10 @@ public class Level1 extends Level {
 
     private void getRedGemLabel() {
         ImageIcon RedGemIcon = new ImageIcon("figs/red_gem.PNG");
-        Image redGemImage = RedGemIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         RedGemIcon = new ImageIcon(redGemImage);
         JLabel RedGemLabel = new JLabel(RedGemIcon);
-        RedGemLabel.setBounds(contentWidth / 2 - RedGemIcon.getIconWidth() / 2,
-                contentHeight / 2 - RedGemIcon.getIconHeight() / 2,
+        RedGemLabel.setBounds(418, 534,
                 RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
 
         RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
