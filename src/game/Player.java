@@ -16,7 +16,7 @@ public class Player {
     private final JFrame gameFrame;
     private Level curLevel;
 
-    private static final HashSet<String> levelNames = new HashSet<>(Set.of("StartPage", "Level1", "Level2", "Level3")); // 所有合法的level名，用于player.goto
+    private static final HashSet<String> levelNames = new HashSet<>(Set.of("StartPage", "Level1", "Level2", "Level3", "Level4", "Level5", "Level6")); // 所有合法的level名，用于player.goto
     private final HashMap<String, Level> accessibleLevels = new HashMap<>();
     private final HashSet<Integer> items = new HashSet<>();
 
