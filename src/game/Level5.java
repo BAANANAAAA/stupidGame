@@ -23,23 +23,23 @@ public class Level5 extends Level {
 
         // 创建左侧透明按钮
         JButton leftButton = new JButton();
-        leftButton.setBounds(190, contentHeight / 2 - 50, 50, 50); // 设置按钮的位置和大小
+        leftButton.setBounds(190, contentHeight / 2 - 50, 50, 50);
         leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         leftButton.setBorderPainted(false);
         leftButton.setContentAreaFilled(false);
         leftButton.setFocusPainted(false);
         leftButton.setOpaque(false);
-        leftButton.addActionListener(e -> handleButtonPress(1)); // 处理按钮点击事件
+        leftButton.addActionListener(e -> handleButtonPress(1));
 
         // 创建右侧透明按钮
         JButton rightButton = new JButton();
-        rightButton.setBounds(550, contentHeight / 2 - 50, 50, 50); // 设置按钮的位置和大小
+        rightButton.setBounds(550, contentHeight / 2 - 50, 50, 50);
         rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rightButton.setBorderPainted(false);
         rightButton.setContentAreaFilled(false);
         rightButton.setFocusPainted(false);
         rightButton.setOpaque(false);
-        rightButton.addActionListener(e -> handleButtonPress(2)); // 处理按钮点击事件
+        rightButton.addActionListener(e -> handleButtonPress(2));
 
         JButton resetButton = new JButton();
         resetButton.setBounds(contentWidth / 2 - 50, 270, 50, 50);

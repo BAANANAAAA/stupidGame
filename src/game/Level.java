@@ -17,7 +17,6 @@ abstract public class Level extends JPanel {
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(contentWidth, contentHeight));
         frame.add(layeredPane, BorderLayout.EAST);
-//        init();
     }
 
     abstract void init(); // 函数应该设置所有的ui图片和listener，放进layeredPane

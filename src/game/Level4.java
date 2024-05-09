@@ -34,6 +34,29 @@ public class Level4 extends Level {
         gemDialog = new GemUnlockDialog(layeredPane, player);
 
         layeredPane.add(chandelierButton, Integer.valueOf(2));
+        getBlueGemLabel();
+    }
+
+    private void getBlueGemLabel() {
+        ImageIcon BlueGemIcon = new ImageIcon("figs/blue_gem.PNG");
+        Image BlueGemImage = BlueGemIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        BlueGemIcon = new ImageIcon(BlueGemImage);
+        JLabel BlueGemLabel = new JLabel(BlueGemIcon);
+        BlueGemLabel.setBounds(contentWidth / 2 - BlueGemIcon.getIconWidth() / 2,
+                contentHeight / 2 - BlueGemIcon.getIconHeight() / 2,
+                BlueGemIcon.getIconWidth(), BlueGemIcon.getIconHeight());
+
+        BlueGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        BlueGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(11);
+                player.showTemporaryMessage("So beautiful...");
+                layeredPane.remove(BlueGemLabel);
+                layeredPane.repaint();
+            }
+        });
+
+        layeredPane.add(BlueGemLabel, Integer.valueOf(2));
     }
 
     private static class GemUnlockDialog extends JDialog {

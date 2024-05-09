@@ -6,7 +6,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Level1 extends Level {
-
     private JPanel vasePanel; // Panel to display the vase image
     private final String correctPassword = "secret"; // Correct password to proceed to level2
     private String cookie = "";
@@ -19,32 +18,72 @@ public class Level1 extends Level {
     }
 
     public void init() {
-        // Load the background image
         ImageIcon backgroundImage = new ImageIcon("figs/level1.PNG");
         JLabel label = new JLabel(backgroundImage);
         label.setBounds(0, 0, contentWidth, contentHeight);
         layeredPane.add(label, Integer.valueOf(1));
 
-        layeredPane.setLayout(new BorderLayout());
-
         // Setup hint label but don't add it yet
         // Label to display hints at the bottom of the screen
-        JLabel hintLabel = new JLabel(" ", SwingConstants.CENTER);
-        hintLabel.setOpaque(true);
-        hintLabel.setBackground(Color.WHITE);
-        hintLabel.setPreferredSize(new Dimension(contentWidth, 30));
-        hintLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//        JLabel hintLabel = new JLabel(" ", SwingConstants.CENTER);
+//        hintLabel.setOpaque(true);
+//        hintLabel.setBackground(Color.WHITE);
+//        hintLabel.setPreferredSize(new Dimension(contentWidth, 30));
+//        hintLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//
+//        layeredPane.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                Rectangle vaseArea = new Rectangle(350, 250, 100, 100);
+//                if (vaseArea.contains(e.getPoint())) {
+//                    showVaseImage();
+//                }
+//            }
+//        });
 
-        layeredPane.addMouseListener(new MouseAdapter() {
-            @Override
+        getRedGemLabel();
+        getHintButton();
+    }
+
+    private void getRedGemLabel() {
+        ImageIcon RedGemIcon = new ImageIcon("figs/red_gem.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        RedGemIcon = new ImageIcon(redGemImage);
+        JLabel RedGemLabel = new JLabel(RedGemIcon);
+        RedGemLabel.setBounds(contentWidth / 2 - RedGemIcon.getIconWidth() / 2,
+                contentHeight / 2 - RedGemIcon.getIconHeight() / 2,
+                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
+
+        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        RedGemLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                // Assuming the clickable area is in the center of the screen
-                Rectangle vaseArea = new Rectangle(350, 250, 100, 100);
-                if (vaseArea.contains(e.getPoint())) {
-                    showVaseImage(); // Show vase image on the same frame
-                }
+                player.addItemToPackage(10);
+                player.showTemporaryMessage("OHHHH! Is that a...red gem?");
+                layeredPane.remove(RedGemLabel);
+                layeredPane.repaint();
             }
         });
+
+        layeredPane.add(RedGemLabel, Integer.valueOf(2));
+    }
+
+    private void getHintButton() {
+        JButton hintButton = new JButton();
+        hintButton.setBounds(380, 270, 50, 80);
+        hintButton.setOpaque(false);
+        hintButton.setContentAreaFilled(false);
+        hintButton.setBorderPainted(false);
+        hintButton.setFocusPainted(false);
+        hintButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        hintButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               showVaseImage();
+            }
+        });
+
+        layeredPane.add(hintButton, Integer.valueOf(2));
     }
 
     private void showVaseImage() {

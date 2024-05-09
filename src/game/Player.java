@@ -56,7 +56,7 @@ public class Player {
                 System.err.println("??" + e.getMessage());
                 System.exit(1);
             } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
-                System.err.println("newInstance" + e.getMessage());
+                System.err.println("newInstance " + e.getMessage());
                 System.exit(1);
             }
         } else {
@@ -64,7 +64,6 @@ public class Player {
         }
         Objects.requireNonNull(curLevel).getLayeredPane().setVisible(true);
 
-//        gameFrame.pack();
         gameFrame.revalidate();
         gameFrame.repaint();
         System.out.println("goto" + dest);

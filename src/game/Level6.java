@@ -23,7 +23,7 @@ public class Level6 extends Level{
 
     private void getCarpet() {
         ImageIcon carpetIcon = new ImageIcon("figs/carpet.PNG");
-        Image keyImage = carpetIcon.getImage().getScaledInstance(640, 610, Image.SCALE_SMOOTH); // 调整大小为50x50
+        Image keyImage = carpetIcon.getImage().getScaledInstance(640, 610, Image.SCALE_SMOOTH);
         carpetIcon = new ImageIcon(keyImage);
         JLabel carpetLabel = new JLabel(carpetIcon);
         carpetLabel.setBounds(220, 150,
