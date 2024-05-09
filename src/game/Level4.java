@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class Level4 extends Level {
         layeredPane.add(label, Integer.valueOf(1));
 
         JButton chandelierButton = new JButton();
-        chandelierButton.setBounds(380, 0, 100, 85); // 指定吊灯的位置和大小
+        chandelierButton.setBounds(380, 200, 100, 85);
         chandelierButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         chandelierButton.setBorderPainted(false);
         chandelierButton.setContentAreaFilled(false);
@@ -36,8 +37,13 @@ public class Level4 extends Level {
         layeredPane.add(chandelierButton, Integer.valueOf(2));
     }
 
+    @Override
+    void handleKeyInput(KeyEvent e) {
 
-    private static class GemUnlockDialog extends JDialog {
+    }
+
+
+    private class GemUnlockDialog extends JDialog {
         private JLabel[] slots = new JLabel[3];
         private Map<String, ImageIcon> gemIcons;
         private Map<String, Integer> gemIdMap;
@@ -47,21 +53,27 @@ public class Level4 extends Level {
             super();
             setSize(400, 200);
             setLocationRelativeTo(parent);
-            setLayout(new FlowLayout());
+            setLayout(new BorderLayout()); // 更改为 BorderLayout
 
             gemIcons = new HashMap<>();
             loadAndResizeIcons();
             gemIdMap = new HashMap<>();
             setupGemIdMap();
 
+            JPanel slotPanel = new JPanel(new FlowLayout()); // 创建一个面板放置插槽
             for (int i = 0; i < slots.length; i++) {
                 slots[i] = new JLabel();
                 slots[i].setPreferredSize(new Dimension(64, 64));
                 slots[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                add(slots[i]);
+                slotPanel.add(slots[i]); // 添加插槽到面板
             }
+            add(slotPanel, BorderLayout.CENTER); // 将插槽面板添加到中央
 
             initializeInventory(player);
+
+            JButton resetButton = new JButton("Reset Gems");
+            resetButton.addActionListener(e -> resetGems());
+            add(resetButton, BorderLayout.SOUTH); // 将按钮放置在窗体的南部
         }
 
         private void setupGemIdMap() {
@@ -81,6 +93,7 @@ public class Level4 extends Level {
         }
 
         private void initializeInventory(Player player) {
+            JPanel gemPanel = new JPanel(new FlowLayout()); // 创建一个面板放置宝石
             for (Map.Entry<String, Integer> entry : gemIdMap.entrySet()) {
                 String gemColor = entry.getKey();
                 int gemId = entry.getValue();
@@ -90,33 +103,21 @@ public class Level4 extends Level {
                         @Override
                         public void mousePressed(MouseEvent e) {
                             JLabel source = (JLabel) e.getSource();
-                            boolean placed = false;
                             for (JLabel slot : slots) {
-                                if (slot.getIcon() == null && source.getParent() != slots[0].getParent()) {
+                                if (slot.getIcon() == null) {
                                     slot.setIcon(source.getIcon());
                                     source.setIcon(null);
-                                    placed = true;
                                     checkIfUnlocked();
                                     break;
                                 }
                             }
-                            if (!placed && source.getIcon() != null) {
-                                // Move the gem back to inventory if it was clicked in a slot
-                                for (Component comp : getContentPane().getComponents()) {
-                                    if (comp instanceof JLabel && ((JLabel) comp).getIcon() == null) {
-                                        ((JLabel) comp).setIcon(source.getIcon());
-                                        source.setIcon(null);
-                                        break;
-                                    }
-                                }
-                            }
                         }
                     });
-                    add(gemLabel);
+                    gemPanel.add(gemLabel); // 将宝石添加到面板
                 }
             }
+            add(gemPanel, BorderLayout.NORTH); // 将宝石面板添加到窗体的北部
         }
-
 
         private void checkIfUnlocked() {
             for (int i = 0; i < slots.length; i++) {
@@ -126,6 +127,17 @@ public class Level4 extends Level {
                 }
             }
             JOptionPane.showMessageDialog(this, "Seems the chandelier is connected to somewhere.", "Unlocked", JOptionPane.INFORMATION_MESSAGE);
+            player.addAccessTo("Level6");
+            dispose();
         }
+
+        private void resetGems() {
+            // 清空所有插槽的图标
+            for (JLabel slot : slots) {
+                slot.setIcon(null);
+            }
+            initializeInventory(player); // 重新初始化库存，将宝石放回固定位置
+        }
+
     }
 }

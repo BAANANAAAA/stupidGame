@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -23,15 +24,6 @@ public class Level2 extends Level {
         JLabel keyLabel = getjLabel();
         layeredPane.add(keyLabel, Integer.valueOf(2));
 
-        // 创建并设置返回按钮
-        JButton backButton = new JButton("Back to Level 1");
-        backButton.setBounds(contentWidth / 2 - 50, contentHeight - 100, 150, 30); // 按钮位置
-        layeredPane.add(backButton, Integer.valueOf(2));
-
-        // 添加监听器
-        backButton.addActionListener(e -> backToLevel1());
-
-        // 创建并设置一个透明的点击区域
         JLabel clickableArea = new JLabel();
         clickableArea.setBounds(contentWidth / 2 - 100, contentHeight / 2 - 100, 200, 200);
         clickableArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -43,9 +35,39 @@ public class Level2 extends Level {
         });
         layeredPane.add(clickableArea, Integer.valueOf(2));
 
-        getGreenGemLabel();
         getBlueGemLabel();
     }
+
+    @Override
+    public void handleKeyInput(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                // 按左键跳转到Level4
+                if (player.hasAccessTo("Level4")) {
+                    player.GoTo("Level4");
+                } else {
+                    player.showTemporaryMessage("Access to Level4 is denied.");
+                }
+                break;
+            case KeyEvent.VK_RIGHT:
+                // 按右键返回Level1
+                if (player.hasAccessTo("Level1")) {
+                    player.GoTo("Level1");
+                } else {
+                    player.showTemporaryMessage("Access to Level1 is denied.");
+                }
+                break;
+            case KeyEvent.VK_DOWN:
+                // 按下键前往Level3
+                if (player.hasAccessTo("Level3")) {
+                    player.GoTo("Level3");
+                } else {
+                    player.showTemporaryMessage("Access to Level3 is denied.");
+                }
+                break;
+        }
+    }
+
 
     private JLabel getjLabel() {
         ImageIcon keyIcon = new ImageIcon("figs/key2.PNG");
@@ -69,34 +91,13 @@ public class Level2 extends Level {
         return keyLabel;
     }
 
-    private void getGreenGemLabel() {
-        ImageIcon GreenGemIcon = new ImageIcon("figs/green_gem.PNG");
-        Image BlueGemImage = GreenGemIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
-        GreenGemIcon = new ImageIcon(BlueGemImage);
-        JLabel GreenGemLabel = new JLabel(GreenGemIcon);
-        GreenGemLabel.setBounds(530,
-                295,
-                GreenGemIcon.getIconWidth(), GreenGemIcon.getIconHeight());
-
-        GreenGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        GreenGemLabel.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                player.addItemToPackage(12);
-                player.showTemporaryMessage("Wait..You picked a green gem!");
-                layeredPane.remove(GreenGemLabel);
-                layeredPane.repaint();
-            }
-        });
-
-        layeredPane.add(GreenGemLabel, Integer.valueOf(2));
-    }
 
     private void getBlueGemLabel() {
         ImageIcon BlueGemIcon = new ImageIcon("figs/blue_gem.PNG");
         Image BlueGemImage = BlueGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         BlueGemIcon = new ImageIcon(BlueGemImage);
         JLabel BlueGemLabel = new JLabel(BlueGemIcon);
-        BlueGemLabel.setBounds(140, 500,
+        BlueGemLabel.setBounds(290, 180,
                 BlueGemIcon.getIconWidth(), BlueGemIcon.getIconHeight());
 
         BlueGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -116,13 +117,10 @@ public class Level2 extends Level {
     private void verifyKey2() {
         if (player.hasItem(2)) {
             JOptionPane.showMessageDialog(frame, "The door opens..");
-            player.GoTo("Level3");
+            player.addAccessTo("Level3");
         } else {
             player.showTemporaryMessage("Nothing happened...");
         }
     }
 
-    private void backToLevel1() {
-        player.GoTo("Level1");
-    }
 }

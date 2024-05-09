@@ -2,6 +2,8 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Constructor;
@@ -18,10 +20,12 @@ public class Player {
 
     private static final HashSet<String> levelNames = new HashSet<>(Set.of("StartPage", "Level1", "Level2", "Level3", "Level4", "Level5", "Level6")); // 所有合法的level名，用于player.goto
     private final HashMap<String, Level> accessibleLevels = new HashMap<>();
+    private final HashSet<String> unLockedLevels = new HashSet<>();
     private final HashSet<Integer> items = new HashSet<>();
 
     public Player(JFrame _frame) {
         gameFrame = _frame;
+        initKeyboardListener();
         System.out.println("player constructed");
     }
 
@@ -75,6 +79,27 @@ public class Player {
 
     public boolean hasItem(int id){
         return items.contains(id);
+    }
+
+    public void addAccessTo(String levelName) {
+        unLockedLevels.add(levelName);
+    }
+
+    public boolean hasAccessTo(String levelName) {
+        return unLockedLevels.contains(levelName);
+    }
+
+    private void initKeyboardListener() {
+        gameFrame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (curLevel != null) {
+                    curLevel.handleKeyInput(e);
+                }
+            }
+        });
+        gameFrame.setFocusable(true);
+        gameFrame.requestFocusInWindow();
     }
 
     public void showTemporaryMessage(String message) {

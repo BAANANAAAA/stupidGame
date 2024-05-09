@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 abstract public class Level extends JPanel {
     public JFrame frame; // 所有level共享一个显示frame
@@ -24,4 +25,6 @@ abstract public class Level extends JPanel {
     public JLayeredPane getLayeredPane() {
         return layeredPane;
     }
+
+    abstract void handleKeyInput(KeyEvent e);
 }

@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -53,6 +54,17 @@ public class Level5 extends Level {
         layeredPane.add(leftButton, Integer.valueOf(2));
         layeredPane.add(rightButton, Integer.valueOf(2));
         layeredPane.add(resetButton, Integer.valueOf(2));
+    }
+
+    @Override
+    public void handleKeyInput(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            if (player.hasAccessTo("Level1")) {
+                player.GoTo("Level1");
+            } else {
+                player.showTemporaryMessage("Access to Level1 is denied.");
+            }
+        }
     }
 
     private void handleButtonPress(int buttonId) {

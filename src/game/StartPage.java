@@ -3,6 +3,7 @@ package game;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class StartPage extends Level {
 
@@ -47,5 +48,10 @@ public class StartPage extends Level {
         layeredPane.add(background, Integer.valueOf(1));
         layeredPane.add(startButton, Integer.valueOf(2)); // 将按钮加入更高层
         layeredPane.add(exitButton, Integer.valueOf(2)); // 将按钮加入更高层
+    }
+
+    @Override
+    void handleKeyInput(KeyEvent e) {
+
     }
 }
