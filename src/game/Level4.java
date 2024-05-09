@@ -1,6 +1,8 @@
 package game;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Level4 extends Level{
     public Level4(JFrame mainFrame, Player player) {
@@ -10,13 +12,17 @@ public class Level4 extends Level{
     }
 
     public void init() {
-        layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(frame.getSize()); // 设定与frame相同的尺寸
-
-        ImageIcon imageIcon = new ImageIcon("figs/level4.PNG"); // 加载图片
+        ImageIcon imageIcon = new ImageIcon("figs/level4.PNG");
         JLabel label = new JLabel(imageIcon);
-        label.setBounds(0, 0, frame.getWidth(), frame.getHeight()); // 覆盖整个窗口
-        layeredPane.add(label, Integer.valueOf(1)); // 添加至低层
+        label.setBounds(0, 0, contentWidth, contentHeight);
+        layeredPane.add(label, Integer.valueOf(1));
+
+        layeredPane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                player.GoTo("Level5");
+            }
+        });
     }
 
 
