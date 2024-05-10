@@ -85,7 +85,7 @@ public class Chat {
             String identification = myCreateRoom(user.getUid());
             if (identification != null) {
                 System.out.println("Room created. ID: " + identification);
-                new Host(panel, user);
+                new Host(panel, user, identification);
             } else {
                 System.out.println("Failed to create room.");
             }

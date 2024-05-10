@@ -14,9 +14,11 @@ public class Host extends ChatPanel implements Runnable {
 
     public ServerSocket serverSocket = null;
 
-    public Host(JPanel _panel, User _user) {
+    public Host(JPanel _panel, User _user, String _id) {
 
         super(_panel, _user);
+
+        showMessage("Your room id is " + _id + ".\n");
 
         System.out.println("ChatPanel Initialized.");
         new Thread(() -> {
