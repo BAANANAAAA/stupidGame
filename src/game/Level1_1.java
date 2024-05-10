@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 public class Level1_1 extends Level {
     private JPanel vasePanel;
-    private final String correctPassword = "secret"; // Correct password to proceed to level2
+    private final String correctPassword = "trinity"; // Correct password to proceed to level2
     private String cookie = "";
 
     public Level1_1(JFrame mainFrame, Player player) {
@@ -112,9 +112,9 @@ public class Level1_1 extends Level {
     }
 
     private void showVaseImage() {
-        ImageIcon vaseImageIcon = new ImageIcon("figs/image.png");
+        ImageIcon vaseImageIcon = new ImageIcon("figs/code.PNG");
 
-        Image vaseImage = vaseImageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image vaseImage = vaseImageIcon.getImage().getScaledInstance(280, 200, Image.SCALE_SMOOTH);
         vaseImageIcon = new ImageIcon(vaseImage);
 
         JLabel vaseLabel = new JLabel(vaseImageIcon);
