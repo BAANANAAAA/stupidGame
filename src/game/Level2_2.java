@@ -34,6 +34,7 @@ public class Level2_2 extends Level {
 
         getHolyWaterLabel();
         getSwordHolderLabel();
+        getRedGemLabel();
     }
 
     @Override
@@ -109,6 +110,24 @@ public class Level2_2 extends Level {
         });
 
         layeredPane.add(swordHolderLabel, Integer.valueOf(2));
+    }
+
+    private void getRedGemLabel() {
+        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint1.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        RedGemIcon = new ImageIcon(redGemImage);
+        JLabel RedGemLabel = new JLabel(RedGemIcon);
+        RedGemLabel.setBounds(200, 360,
+                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
+
+        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        RedGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.showParchmentHint("Third...\nFlaming RED of candle.");
+            }
+        });
+
+        layeredPane.add(RedGemLabel, Integer.valueOf(2));
     }
 
 }

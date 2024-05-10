@@ -30,6 +30,9 @@ public class Level1_2 extends Level {
         getHint1Label();
         getKeyLabel();
         getCrossHolderLabel();
+        getHint1Label();
+        getKeyHintLabel();
+        getTEHintLabel();
     }
 
     private void getKeyLabel() {
@@ -128,6 +131,42 @@ public class Level1_2 extends Level {
         RedGemLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 player.showParchmentHint("Three gems, \nor maybe more...?");
+            }
+        });
+
+        layeredPane.add(RedGemLabel, Integer.valueOf(2));
+    }
+
+    private void getKeyHintLabel() {
+        ImageIcon RedGemIcon = new ImageIcon("figs/hint2.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        RedGemIcon = new ImageIcon(redGemImage);
+        JLabel RedGemLabel = new JLabel(RedGemIcon);
+        RedGemLabel.setBounds(600, 360,
+                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
+
+        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        RedGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.showParchmentHint("Amidst crackling flames\nLies the secret\nTo next journey");
+            }
+        });
+
+        layeredPane.add(RedGemLabel, Integer.valueOf(2));
+    }
+
+    private void getTEHintLabel() {
+        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint1.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        RedGemIcon = new ImageIcon(redGemImage);
+        JLabel RedGemLabel = new JLabel(RedGemIcon);
+        RedGemLabel.setBounds(300, 460,
+                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
+
+        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        RedGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.showParchmentHint("Kiss of sun\nShall doom you,\nEmbodiment evil,\nto your demise\n\nYet\nVirtuous shall find rebirth");
             }
         });
 

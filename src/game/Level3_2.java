@@ -21,7 +21,7 @@ public class Level3_2 extends Level {
         layeredPane.add(label, Integer.valueOf(1)); // 添加至低层
 
         createMirrorArea();
-        getGreenGemLabel();
+        getGreenGemHintLabel();
     }
 
     @Override
@@ -59,26 +59,22 @@ public class Level3_2 extends Level {
         layeredPane.add(mirrorArea, Integer.valueOf(2));
     }
 
-    private void getGreenGemLabel() {
-        ImageIcon GreenGemIcon = new ImageIcon("figs/green_gem.PNG");
-        Image BlueGemImage = GreenGemIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
-        GreenGemIcon = new ImageIcon(BlueGemImage);
-        JLabel GreenGemLabel = new JLabel(GreenGemIcon);
-        GreenGemLabel.setBounds(98,
-                280,
-                GreenGemIcon.getIconWidth(), GreenGemIcon.getIconHeight());
+    private void getGreenGemHintLabel() {
+        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint1.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        RedGemIcon = new ImageIcon(redGemImage);
+        JLabel RedGemLabel = new JLabel(RedGemIcon);
+        RedGemLabel.setBounds(150, 360,
+                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
 
-        GreenGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        GreenGemLabel.addMouseListener(new MouseAdapter() {
+        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        RedGemLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                player.addItemToPackage(12);
-                player.showTemporaryMessage("Wait..You picked a green gem!");
-                layeredPane.remove(GreenGemLabel);
-                layeredPane.repaint();
+                player.showParchmentHint("Second....\nWeeping green of mother");
             }
         });
 
-        layeredPane.add(GreenGemLabel, Integer.valueOf(2));
+        layeredPane.add(RedGemLabel, Integer.valueOf(2));
     }
 
     private void verifyHammer() {

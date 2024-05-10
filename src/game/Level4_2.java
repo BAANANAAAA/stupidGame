@@ -21,6 +21,7 @@ public class Level4_2 extends Level {
         layeredPane.add(label, Integer.valueOf(1));
 
         getBurningLabel();
+        getBlueGemHintLabel();
     }
 
     @Override
@@ -59,5 +60,23 @@ public class Level4_2 extends Level {
         });
 
         layeredPane.add(burningLabel, Integer.valueOf(2));
+    }
+
+    private void getBlueGemHintLabel() {
+        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint1.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        RedGemIcon = new ImageIcon(redGemImage);
+        JLabel RedGemLabel = new JLabel(RedGemIcon);
+        RedGemLabel.setBounds(300, 360,
+                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
+
+        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        RedGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.showParchmentHint("First....\nWondering BLUE of vase");
+            }
+        });
+
+        layeredPane.add(RedGemLabel, Integer.valueOf(2));
     }
 }
