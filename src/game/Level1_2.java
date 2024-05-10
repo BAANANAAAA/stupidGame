@@ -142,7 +142,7 @@ public class Level1_2 extends Level {
         Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         RedGemIcon = new ImageIcon(redGemImage);
         JLabel RedGemLabel = new JLabel(RedGemIcon);
-        RedGemLabel.setBounds(600, 360,
+        RedGemLabel.setBounds(600, 300,
                 RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
 
         RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -160,7 +160,7 @@ public class Level1_2 extends Level {
         Image redGemImage = RedGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         RedGemIcon = new ImageIcon(redGemImage);
         JLabel RedGemLabel = new JLabel(RedGemIcon);
-        RedGemLabel.setBounds(300, 460,
+        RedGemLabel.setBounds(265, 120,
                 RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
 
         RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
