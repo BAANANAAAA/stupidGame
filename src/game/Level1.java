@@ -17,6 +17,7 @@ public class Level1 extends Level {
         init();
         player.insertLevel("Level1", this);
         player.addAccessTo("Level1");
+        player.addAccessTo("Level5");
     }
 
     public void init() {
