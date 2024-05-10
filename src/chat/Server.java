@@ -1,63 +1,62 @@
 package chat;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.io.*;
+import java.net.*;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.swing.*;
-
-import java.security.*;
-import java.text.SimpleDateFormat;
-
-
-public class Server extends ChatPanel implements Runnable {
-
-    // Socket
-    private static final int PORT_NUM = 9898;
-    ServerSocket serverSocket = null;
-
-    // JPanel
-    JPanel panel;
-    User user;
-    JTextArea messageArea;
-    JTextField inputField;
-    JScrollBar scrollBar;
-
-    Date currentDate;
-    SimpleDateFormat sdf;
-    String dateFormat = "E MMM dd HH:mm:ss z yyyy";
-
-    public Server(JPanel _panel, User _user) {
-
-        super(_panel);
-        user = _user;
-
-//        Thread t = new Thread(this);
-//        t.start();
+public class Server {
+    public static void main(String[] args) {
+        try {
+            ServerSocket serverSocket = new ServerSocket(12345);
+            System.out.println("Server started. Listening on port 12345");
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected: " + clientSocket);
+                Thread t = new Thread(new ClientHandler(clientSocket));
+                t.start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public void run() {
+    private static class ClientHandler implements Runnable {
+        private final Socket clientSocket;
 
+        public ClientHandler(Socket clientSocket) {
+            this.clientSocket = clientSocket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+                out.println(processRequest(in.readLine()));
+
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private String processRequest(String request) {
+            // Input: String, "method arg1 arg2"
+            String[] parts = request.split(" ");
+            String method = parts[0];
+
+            switch (method) {
+                case "login" -> {
+                    return Database.login(parts[1], parts[2]);
+                }
+                case "createRoom" -> {
+                    return Database.createRoom(Integer.parseInt(parts[1]));
+                }
+                case "createUse" -> {
+                    return Database.joinRoom(Integer.parseInt(parts[1]), parts[2]);
+                }
+            }
+            return "No match method.";
+        }
     }
 }
-
-
