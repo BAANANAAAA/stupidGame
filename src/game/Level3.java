@@ -22,8 +22,6 @@ public class Level3 extends Level {
 
         createSofaHintArea();
         createMirrorArea();
-        JLabel hammerLabel = getHammerLabel();
-        layeredPane.add(hammerLabel, Integer.valueOf(2)); // 添加至中层
 
         getGreenGemLabel();
     }
@@ -42,7 +40,7 @@ public class Level3 extends Level {
                 if (player.hasAccessTo("Level6")) {
                     player.GoTo("Level6");
                 } else {
-                    player.showTemporaryMessage("Access to Level6 is denied.");
+                    player.showTemporaryMessage("Maybe there is even more room...but not now..?");
                 }
                 break;
         }
@@ -83,25 +81,6 @@ public class Level3 extends Level {
         });
 
         layeredPane.add(mirrorArea, Integer.valueOf(2)); // Add the clickable area above the background
-    }
-
-    private JLabel getHammerLabel() {
-        ImageIcon keyIcon = new ImageIcon("figs/hammer0.PNG");
-        Image keyImage = keyIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // 调整大小为50x50
-        keyIcon = new ImageIcon(keyImage);
-        JLabel keyLabel = new JLabel(keyIcon);
-        keyLabel.setBounds(keyIcon.getIconWidth() / 2,
-                contentHeight / 2 - keyIcon.getIconHeight() / 2,
-                keyIcon.getIconWidth(), keyIcon.getIconHeight());
-        keyLabel.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                player.addItemToPackage(3); // 添加钥匙到玩家物品列表
-                player.showTemporaryMessage("An exquisite hammer..");
-                layeredPane.remove(keyLabel); // 移除钥匙标签
-                layeredPane.repaint(); // 重绘界面
-            }
-        });
-        return keyLabel;
     }
 
     private void getGreenGemLabel() {

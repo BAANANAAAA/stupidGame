@@ -21,9 +21,6 @@ public class Level2 extends Level {
         label.setBounds(0, 0, contentWidth, contentHeight); // 覆盖整个窗口
         layeredPane.add(label, Integer.valueOf(1)); // 添加至低层
 
-        JLabel keyLabel = getjLabel();
-        layeredPane.add(keyLabel, Integer.valueOf(2));
-
         JLabel clickableArea = new JLabel();
         clickableArea.setBounds(contentWidth / 2 - 100, contentHeight / 2 - 100, 200, 200);
         clickableArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -46,7 +43,7 @@ public class Level2 extends Level {
                 if (player.hasAccessTo("Level4")) {
                     player.GoTo("Level4");
                 } else {
-                    player.showTemporaryMessage("Access to Level4 is denied.");
+                    player.showTemporaryMessage("Not accessible yet.");
                 }
                 break;
             case KeyEvent.VK_RIGHT:
@@ -62,35 +59,11 @@ public class Level2 extends Level {
                 if (player.hasAccessTo("Level3")) {
                     player.GoTo("Level3");
                 } else {
-                    player.showTemporaryMessage("Access to Level3 is denied.");
+                    player.showTemporaryMessage("Yes, a key is needed.");
                 }
                 break;
         }
     }
-
-
-    private JLabel getjLabel() {
-        ImageIcon keyIcon = new ImageIcon("figs/key2.PNG");
-        Image keyImage = keyIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        keyIcon = new ImageIcon(keyImage);
-        JLabel keyLabel = new JLabel(keyIcon);
-        keyLabel.setBounds(contentWidth / 2 - keyIcon.getIconWidth() / 2,
-                contentHeight / 2 - keyIcon.getIconHeight() / 2,
-                keyIcon.getIconWidth(), keyIcon.getIconHeight());
-
-        // Set the cursor to hand cursor when mouse hovers over the JLabel
-        keyLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        keyLabel.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                player.addItemToPackage(2);
-                player.showTemporaryMessage("Wow, you acquired a magical key!");
-                layeredPane.remove(keyLabel);
-                layeredPane.repaint();
-            }
-        });
-        return keyLabel;
-    }
-
 
     private void getBlueGemLabel() {
         ImageIcon BlueGemIcon = new ImageIcon("figs/blue_gem.PNG");

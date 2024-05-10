@@ -38,10 +38,15 @@ public class Level4 extends Level {
     }
 
     @Override
-    void handleKeyInput(KeyEvent e) {
-
+    public void handleKeyInput(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if (player.hasAccessTo("Level2")) {
+                player.GoTo("Level2");
+            } else {
+                player.showTemporaryMessage("Access to Level2 is denied.");
+            }
+        }
     }
-
 
     private class GemUnlockDialog extends JDialog {
         private JLabel[] slots = new JLabel[3];

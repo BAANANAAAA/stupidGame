@@ -28,6 +28,27 @@ public class Level1 extends Level {
 
         getRedGemLabel();
         getHintButton();
+
+        getKeyLabel();
+    }
+
+    private void getKeyLabel() {
+        ImageIcon keyIcon = new ImageIcon("figs/key1.PNG");
+        Image keyImage = keyIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        keyIcon = new ImageIcon(keyImage);
+        JLabel keyLabel = new JLabel(keyIcon);
+        keyLabel.setBounds(255, 220, keyIcon.getIconWidth(), keyIcon.getIconHeight());
+
+        keyLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        keyLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(2);
+                player.showTemporaryMessage("EWW! That's a key!");
+                layeredPane.remove(keyLabel);
+                layeredPane.repaint();
+            }
+        });
+        layeredPane.add(keyLabel, Integer.valueOf(2));
     }
 
     @Override
@@ -97,10 +118,7 @@ public class Level1 extends Level {
         // Load the vase image
         ImageIcon vaseImageIcon = new ImageIcon("figs/image.png");
 
-        // Calculate the size and position for the vase image (let's say it's 200x200 pixels)
-        int width = 200;
-        int height = 200;
-        Image vaseImage = vaseImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image vaseImage = vaseImageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         vaseImageIcon = new ImageIcon(vaseImage); // Convert back to ImageIcon for the label
 
         // Create a label to show the vase image
@@ -111,17 +129,13 @@ public class Level1 extends Level {
         vasePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         vasePanel.setBackground(Color.WHITE); // Set the background to white
 
-        // Set the size and position of the panel (in the center of the frame)
-        vasePanel.setBounds((contentWidth - width) / 2 - 10, (contentHeight - height) / 2 - 10, width + 20, height + 60);
+        vasePanel.setBounds(450, 280, 300,240);
 
-        // Create the input field and submit button
         JTextField passwordField = new JTextField(10); // Field for entering password
         JButton submitButton = new JButton("Submit");
 
-        // Add listener to the submit button
         submitButton.addActionListener(e -> verifyPassword(passwordField.getText()));
 
-        // Add mouse listener to the panel to close it on click
         vasePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -158,7 +172,6 @@ public class Level1 extends Level {
             closeVasePanel();
             JOptionPane.showMessageDialog(frame, "Yes, indeed..." + cookie, "Wow", JOptionPane.WARNING_MESSAGE);
             cookie += "a";
-//            player.GoTo("Level2");
             player.addAccessTo("Level2");
         } else {
             // Incorrect password, show error message

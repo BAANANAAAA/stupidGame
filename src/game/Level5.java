@@ -3,6 +3,8 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -24,7 +26,7 @@ public class Level5 extends Level {
 
         // left button
         JButton leftButton = new JButton();
-        leftButton.setBounds(190, contentHeight / 2 - 50, 50, 50);
+        leftButton.setBounds(190, 200, 50, 50);
         leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         leftButton.setBorderPainted(false);
         leftButton.setContentAreaFilled(false);
@@ -34,7 +36,7 @@ public class Level5 extends Level {
 
         // right button
         JButton rightButton = new JButton();
-        rightButton.setBounds(550, contentHeight / 2 - 50, 50, 50);
+        rightButton.setBounds(550, 200, 50, 50);
         rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rightButton.setBorderPainted(false);
         rightButton.setContentAreaFilled(false);
@@ -43,7 +45,7 @@ public class Level5 extends Level {
         rightButton.addActionListener(e -> handleButtonPress(2));
 
         JButton resetButton = new JButton();
-        resetButton.setBounds(contentWidth / 2 - 50, 270, 50, 50);
+        resetButton.setBounds(380, 270, 50, 50);
         resetButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         resetButton.setBorderPainted(false);
         resetButton.setContentAreaFilled(false);
@@ -54,6 +56,8 @@ public class Level5 extends Level {
         layeredPane.add(leftButton, Integer.valueOf(2));
         layeredPane.add(rightButton, Integer.valueOf(2));
         layeredPane.add(resetButton, Integer.valueOf(2));
+
+        getHammerLabel();
     }
 
     @Override
@@ -78,5 +82,26 @@ public class Level5 extends Level {
 
     private void resetSequence() {
         userSequence.clear();
+    }
+
+    private void getHammerLabel() {
+        ImageIcon hammerIcon = new ImageIcon("figs/hammer0.PNG");
+        Image hammerImage = hammerIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // 调整大小为50x50
+        hammerIcon = new ImageIcon(hammerImage);
+        JLabel hammerLabel = new JLabel(hammerIcon);
+        hammerLabel.setBounds(425, 260,
+                hammerIcon.getIconWidth(), hammerIcon.getIconHeight());
+        hammerLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        hammerLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(3);
+                player.showTemporaryMessage("Maybe it can break something?..");
+                layeredPane.remove(hammerLabel);
+                layeredPane.repaint();
+            }
+        });
+
+        layeredPane.add(hammerLabel, Integer.valueOf(2));
     }
 }

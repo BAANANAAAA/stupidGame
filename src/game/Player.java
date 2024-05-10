@@ -102,28 +102,64 @@ public class Player {
         gameFrame.requestFocusInWindow();
     }
 
+//    public void showTemporaryMessage(String message) {
+//        JLayeredPane layeredPane = curLevel.getLayeredPane();
+//        JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
+//        messageLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+//        messageLabel.setOpaque(true);
+//        messageLabel.setBackground(Color.WHITE);
+//        messageLabel.setBounds((gameFrame.getWidth() - 800) / 2, gameFrame.getHeight() - 100, 600, 50);
+//        layeredPane.add(messageLabel, 2, 0);
+//
+//        messageLabel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                layeredPane.remove(messageLabel);
+//                layeredPane.repaint();
+//            }
+//        });
+//
+//        Timer timer = new Timer(4000, e -> {
+//            layeredPane.remove(messageLabel);
+//            layeredPane.repaint();
+//        });
+//        timer.setRepeats(false);
+//        timer.start();
+//    }
+
     public void showTemporaryMessage(String message) {
-        JLayeredPane layeredPane = curLevel.getLayeredPane(); // Assuming curLevel is never null when this is called
+        JLayeredPane layeredPane = curLevel.getLayeredPane();
+
+        ImageIcon dialogIcon = new ImageIcon("figs/dialog.PNG");
+        Image dialogImage = dialogIcon.getImage().getScaledInstance(500, 250, Image.SCALE_SMOOTH); // 调整大小为50x50
+        dialogIcon = new ImageIcon(dialogImage);
+        JLabel dialogLabel = new JLabel(dialogIcon);
+        dialogLabel.setBounds(160,460, dialogIcon.getIconWidth(), dialogIcon.getIconHeight());
+
         JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
         messageLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
-        messageLabel.setOpaque(true);
-        messageLabel.setBackground(Color.WHITE);
-        messageLabel.setBounds((gameFrame.getWidth() - 600) / 2, gameFrame.getHeight() - 100, 600, 50);
-        layeredPane.add(messageLabel, 2, 0);
+        messageLabel.setForeground(Color.BLACK);
+        messageLabel.setBounds(0, 110, dialogIcon.getIconWidth(), 30);
 
-        messageLabel.addMouseListener(new MouseAdapter() {
+        dialogLabel.setLayout(null);
+        dialogLabel.add(messageLabel);
+
+        layeredPane.add(dialogLabel, JLayeredPane.POPUP_LAYER);
+
+        dialogLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                layeredPane.remove(messageLabel);
+                layeredPane.remove(dialogLabel);
                 layeredPane.repaint();
             }
         });
 
         Timer timer = new Timer(4000, e -> {
-            layeredPane.remove(messageLabel);
+            layeredPane.remove(dialogLabel);
             layeredPane.repaint();
         });
         timer.setRepeats(false);
         timer.start();
     }
+
 }
