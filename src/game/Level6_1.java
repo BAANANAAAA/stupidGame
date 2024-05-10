@@ -25,12 +25,19 @@ public class Level6_1 extends Level{
 
     @Override
     public void handleKeyInput(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            if (player.hasAccessTo("Level3_1")) {
-                player.GoTo("Level3_1");
-            } else {
-                player.showTemporaryMessage("Access to Level3 is denied.");
-            }
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                if (player.hasAccessTo("Level3_1")) {
+                    player.GoTo("Level3_1");
+                } else {
+                    player.showTemporaryMessage("Access to Level3 is denied.");
+                }
+                break;
+            case KeyEvent.VK_DOWN:
+                if (player.hasAccessTo("Level7")) {
+                    player.GoTo("Level7");
+                }
+                break;
         }
     }
 
@@ -77,6 +84,7 @@ public class Level6_1 extends Level{
             } else {
                 JOptionPane.showMessageDialog(layeredPane, "Look inside and to the depth of books.");
                 player.showTemporaryMessage("LRLLR");
+                player.addAccessTo("Level7");
             }
         }
     }

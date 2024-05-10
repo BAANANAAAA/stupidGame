@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class Level5_2 extends Level {
     private final ArrayList<Integer> userSequence = new ArrayList<>();
-    private final ArrayList<Integer> correctSequence = new ArrayList<>(Arrays.asList(1, 2, 1));
+    private final ArrayList<Integer> correctSequence = new ArrayList<>(Arrays.asList(1,2,1,1,2));
 
     public Level5_2(JFrame mainFrame, Player player) {
         super(mainFrame, player);
@@ -75,8 +75,8 @@ public class Level5_2 extends Level {
     private void handleButtonPress(int buttonId) {
         userSequence.add(buttonId);
         if (userSequence.equals(correctSequence)) {
-            player.showTemporaryMessage("Orange gem acquired! What is this for?");
-            player.addItemToPackage(14);
+            player.showTemporaryMessage("Far comes a crack...");
+            player.addAccessTo("Level7");
             userSequence.clear();
             layeredPane.requestFocus();
             layeredPane.addKeyListener(new KeyAdapter() {

@@ -21,7 +21,8 @@ public class Player {
     private static final HashSet<String> levelNames = new HashSet<>(
             Set.of("StartPage",
                 "Level1_1", "Level2_1", "Level3_1", "Level4_1", "Level5_1", "Level6_1",
-                "Level1_2", "Level2_2", "Level3_2", "Level4_2", "Level5_2", "Level6_2")); // 所有合法的level名，用于player.goto
+                "Level1_2", "Level2_2", "Level3_2", "Level4_2", "Level5_2", "Level6_2",
+                    "Level7")); // 所有合法的level名，用于player.goto
     private final HashMap<String, Level> accessibleLevels = new HashMap<>();
     private final HashSet<String> unLockedLevels = new HashSet<>();
     private final HashSet<Integer> items = new HashSet<>();
