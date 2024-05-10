@@ -71,19 +71,14 @@ public class Level6_1 extends Level{
         int choice = JOptionPane.showConfirmDialog(layeredPane, "Do you want to use the magic circle?",
                 "Magic Circle", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (choice == JOptionPane.YES_OPTION) {
-            if (player.hasItem(14)) {
-                JOptionPane.showMessageDialog(layeredPane, "Congratulations! You've completed the game!");
+            if (!player.hasItem(14)) {
+                JOptionPane.showMessageDialog(layeredPane, "You fled! However, the house comes into your dream...");
                 System.exit(0);
             } else {
-                asktwice();
+                JOptionPane.showMessageDialog(layeredPane, "Look inside and to the depth of books.");
+                player.showTemporaryMessage("LRLLR");
             }
         }
-    }
-
-    private void asktwice() {
-        int choice = JOptionPane.showConfirmDialog(layeredPane,
-                "You want to use the magic circle??", "Magic Circle", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        asktwice();
     }
 
 }
