@@ -29,6 +29,7 @@ public class Level1_2 extends Level {
         getSwordLabel();
         getHint1Label();
         getKeyLabel();
+        getCrossHolderLabel();
     }
 
     private void getKeyLabel() {
@@ -89,6 +90,30 @@ public class Level1_2 extends Level {
         });
 
         layeredPane.add(swordLabel, Integer.valueOf(2));
+    }
+
+    private void getCrossHolderLabel() {
+        ImageIcon crossHolderIcon = new ImageIcon("figs/crossholder.PNG");
+        Image crossHolderImage = crossHolderIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        crossHolderIcon = new ImageIcon(crossHolderImage);
+        JLabel crossHolderLabel = new JLabel(crossHolderIcon);
+        crossHolderLabel.setBounds(355, 480,
+                crossHolderIcon.getIconWidth(), crossHolderIcon.getIconHeight());
+
+        crossHolderLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        crossHolderLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if(player.hasItem(3) && !player.hasAccessTo("Level5_2")){
+                    player.showTemporaryMessage("A cracking sound comes from the right room.");
+                    player.addAccessTo("Level5_2");
+                }
+                else {
+                    player.showTemporaryMessage("Something is missing.");
+                }
+            }
+        });
+
+        layeredPane.add(crossHolderLabel, Integer.valueOf(2));
     }
 
     private void getHint1Label() {
