@@ -43,8 +43,6 @@ public class StartPage extends Level {
             }
         });
 
-        // 将背景面板和按钮添加到 JLayeredPane
-//        layeredPane.add(backgroundPanel, Integer.valueOf(1)); // 将背景加入更低层
         layeredPane.add(background, Integer.valueOf(1));
         layeredPane.add(startButton, Integer.valueOf(2)); // 将按钮加入更高层
         layeredPane.add(exitButton, Integer.valueOf(2)); // 将按钮加入更高层
