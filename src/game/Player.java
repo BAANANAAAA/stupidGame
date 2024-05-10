@@ -147,7 +147,7 @@ public class Player {
         Image parchmentImage = parchmentIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // 调整大小为50x50
         parchmentIcon = new ImageIcon(parchmentImage);
         JLabel parchmentLabel = new JLabel(parchmentIcon);
-        parchmentLabel.setBounds(160,460, parchmentIcon.getIconWidth(), parchmentIcon.getIconHeight());
+        parchmentLabel.setBounds(160,300, parchmentIcon.getIconWidth(), parchmentIcon.getIconHeight());
 
         JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
         messageLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
