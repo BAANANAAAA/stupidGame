@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -74,9 +75,16 @@ public class Level5 extends Level {
     private void handleButtonPress(int buttonId) {
         userSequence.add(buttonId);
         if (userSequence.equals(correctSequence)) {
-            JOptionPane.showMessageDialog(layeredPane, "O, yes, the orange gem...the final one");
+            player.showTemporaryMessage("Orange gem acquired! What is this for?");
             player.addItemToPackage(14);
             userSequence.clear();
+            layeredPane.requestFocus();
+            layeredPane.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    handleKeyInput(e);
+                }
+            });
         }
     }
 

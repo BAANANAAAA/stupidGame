@@ -160,12 +160,11 @@ public class Level1 extends Level {
     private void verifyPassword(String enteredPassword) {
         if (enteredPassword.equals(correctPassword)) {
             closeVasePanel();
-            JOptionPane.showMessageDialog(frame, "Yes, indeed..." + cookie, "Wow", JOptionPane.WARNING_MESSAGE);
+            player.showTemporaryMessage("O! Look behind then.");
             cookie += "a";
             player.addAccessTo("Level2");
         } else {
-            // Incorrect password, show error message
-            JOptionPane.showMessageDialog(frame, "Incorrect password!", "Error", JOptionPane.ERROR_MESSAGE);
+            player.showTemporaryMessage("Maybe not..");
         }
     }
 
