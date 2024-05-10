@@ -21,7 +21,6 @@ public class Level6_2 extends Level{
 
         getCarpet();
         getCrossLabel();
-        addMagicCircleInteraction();
     }
 
     private void getCrossLabel() {
@@ -72,40 +71,6 @@ public class Level6_2 extends Level{
             }
         });
         layeredPane.add(carpetLabel, Integer.valueOf(2));
-    }
-
-    private void addMagicCircleInteraction() {
-        JLabel magicCircleArea = new JLabel();
-        magicCircleArea.setBounds(400, 600, 100, 100);
-        magicCircleArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        magicCircleArea.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if(player.hasItem(6)){
-                    triggerMagicCircle();
-                }
-            }
-        });
-        layeredPane.add(magicCircleArea, Integer.valueOf(2));
-    }
-
-    private void triggerMagicCircle() {
-        int choice = JOptionPane.showConfirmDialog(layeredPane, "Do you want to use the magic circle?",
-                "Magic Circle", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (choice == JOptionPane.YES_OPTION) {
-            if (player.hasItem(14)) {
-                JOptionPane.showMessageDialog(layeredPane, "Congratulations! You've completed the game!");
-                System.exit(0);
-            } else {
-                asktwice();
-            }
-        }
-    }
-
-    private void asktwice() {
-        int choice = JOptionPane.showConfirmDialog(layeredPane,
-                "You want to use the magic circle??", "Magic Circle", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        asktwice();
     }
 
 }
