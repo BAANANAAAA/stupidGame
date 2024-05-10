@@ -12,7 +12,6 @@ public class Level2_2 extends Level {
         super(mainFrame, player);
         init();
         player.insertLevel("Level2_2", this);
-        player.insertLevel("Level4_2", this);
     }
 
     public void init() {
@@ -28,12 +27,13 @@ public class Level2_2 extends Level {
         clickableArea.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                player.showTemporaryMessage("The door cannot block you. Why?");
+                player.showTemporaryMessage("Something behind the door blocks you.");
             }
         });
         layeredPane.add(clickableArea, Integer.valueOf(2));
 
         getHolyWaterLabel();
+        getSwordHolderLabel();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Level2_2 extends Level {
                 if (player.hasAccessTo("Level4_2")) {
                     player.GoTo("Level4_2");
                 } else {
-                    player.showTemporaryMessage("Not accessible yet.");
+                    player.showTemporaryMessage("Just...no...");
                 }
                 break;
             case KeyEvent.VK_RIGHT:
@@ -60,7 +60,7 @@ public class Level2_2 extends Level {
                 if (player.hasAccessTo("Level3_2")) {
                     player.GoTo("Level3_2");
                 } else {
-                    player.showTemporaryMessage("Hmm? It waits something..");
+                    player.showTemporaryMessage("Ouch! That burns...");
                 }
                 break;
         }
@@ -78,13 +78,37 @@ public class Level2_2 extends Level {
         holyWaterLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 player.addItemToPackage(2);
-                player.showTemporaryMessage("It hurts! But...");
+                player.showTemporaryMessage("Holy! It hurts! But...");
                 layeredPane.remove(holyWaterLabel);
                 layeredPane.repaint();
             }
         });
 
         layeredPane.add(holyWaterLabel, Integer.valueOf(2));
+    }
+
+    private void getSwordHolderLabel() {
+        ImageIcon swordHolderIcon = new ImageIcon("figs/swordholder.PNG");
+        Image swordHolderImage = swordHolderIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        swordHolderIcon = new ImageIcon(swordHolderImage);
+        JLabel swordHolderLabel = new JLabel(swordHolderIcon);
+        swordHolderLabel.setBounds(350, 510,
+                swordHolderIcon.getIconWidth(), swordHolderIcon.getIconHeight());
+
+        swordHolderLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        swordHolderLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if(player.hasItem(1) && !player.hasAccessTo("Level4_2")){
+                    player.showTemporaryMessage("Oh! Now you can traverse the door...");
+                    player.addAccessTo("Level4_2");
+                }
+                else {
+                    player.showTemporaryMessage("Strange thing...");
+                }
+            }
+        });
+
+        layeredPane.add(swordHolderLabel, Integer.valueOf(2));
     }
 
 }

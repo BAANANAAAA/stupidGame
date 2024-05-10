@@ -20,7 +20,29 @@ public class Level6_2 extends Level{
         layeredPane.add(label, Integer.valueOf(1));
 
         getCarpet();
+        getCrossLabel();
         addMagicCircleInteraction();
+    }
+
+    private void getCrossLabel() {
+        ImageIcon crossIcon = new ImageIcon("figs/cross.PNG");
+        Image crossImage = crossIcon.getImage().getScaledInstance(40, 95, Image.SCALE_SMOOTH);
+        crossIcon = new ImageIcon(crossImage);
+        JLabel crossLabel = new JLabel(crossIcon);
+        crossLabel.setBounds(385, 235,
+                crossIcon.getIconWidth(), crossIcon.getIconHeight());
+
+        crossLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        crossLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(3);
+                player.showTemporaryMessage("Holding it stings.");
+                layeredPane.remove(crossLabel);
+                layeredPane.repaint();
+            }
+        });
+
+        layeredPane.add(crossLabel, Integer.valueOf(2));
     }
 
     @Override
