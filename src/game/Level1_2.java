@@ -26,7 +26,7 @@ public class Level1_2 extends Level {
         label.setBounds(0, 0, contentWidth, contentHeight);
         layeredPane.add(label, Integer.valueOf(1));
 
-        getRedGemLabel();
+        getSwordLabel();
         getHint1Label();
         getKeyLabel();
     }
@@ -70,25 +70,25 @@ public class Level1_2 extends Level {
         }
     }
 
-    private void getRedGemLabel() {
-        ImageIcon RedGemIcon = new ImageIcon("figs/red_gem.PNG");
-        Image redGemImage = RedGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        RedGemIcon = new ImageIcon(redGemImage);
-        JLabel RedGemLabel = new JLabel(RedGemIcon);
-        RedGemLabel.setBounds(52, 405,
-                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
+    private void getSwordLabel() {
+        ImageIcon swordIcon = new ImageIcon("figs/sword.PNG");
+        Image swordImage = swordIcon.getImage().getScaledInstance(60, 150, Image.SCALE_SMOOTH);
+        swordIcon = new ImageIcon(swordImage);
+        JLabel swordLabel = new JLabel(swordIcon);
+        swordLabel.setBounds(375, 420,
+                swordIcon.getIconWidth(), swordIcon.getIconHeight());
 
-        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        RedGemLabel.addMouseListener(new MouseAdapter() {
+        swordLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        swordLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 player.addItemToPackage(10);
-                player.showTemporaryMessage("OHHHH! Is that a...red gem?");
-                layeredPane.remove(RedGemLabel);
+                player.showTemporaryMessage("A sword, to whom?");
+                layeredPane.remove(swordLabel);
                 layeredPane.repaint();
             }
         });
 
-        layeredPane.add(RedGemLabel, Integer.valueOf(2));
+        layeredPane.add(swordLabel, Integer.valueOf(2));
     }
 
     private void getHint1Label() {
