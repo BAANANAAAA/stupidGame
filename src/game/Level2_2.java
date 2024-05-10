@@ -12,6 +12,7 @@ public class Level2_2 extends Level {
         super(mainFrame, player);
         init();
         player.insertLevel("Level2_2", this);
+        player.insertLevel("Level4_2", this);
     }
 
     public void init() {
@@ -27,12 +28,12 @@ public class Level2_2 extends Level {
         clickableArea.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                verifyKey2();
+                player.showTemporaryMessage("The door cannot block you. Why?");
             }
         });
         layeredPane.add(clickableArea, Integer.valueOf(2));
 
-        getBlueGemLabel();
+        getHolyWaterLabel();
     }
 
     @Override
@@ -59,41 +60,31 @@ public class Level2_2 extends Level {
                 if (player.hasAccessTo("Level3_2")) {
                     player.GoTo("Level3_2");
                 } else {
-                    player.showTemporaryMessage("Yes, a key is needed.");
+                    player.showTemporaryMessage("Hmm? It waits something..");
                 }
                 break;
         }
     }
 
-    private void getBlueGemLabel() {
-        ImageIcon BlueGemIcon = new ImageIcon("figs/blue_gem.PNG");
-        Image BlueGemImage = BlueGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        BlueGemIcon = new ImageIcon(BlueGemImage);
-        JLabel BlueGemLabel = new JLabel(BlueGemIcon);
-        BlueGemLabel.setBounds(290, 180,
-                BlueGemIcon.getIconWidth(), BlueGemIcon.getIconHeight());
+    private void getHolyWaterLabel() {
+        ImageIcon holyWaterIcon = new ImageIcon("figs/holywater.PNG");
+        Image holyWaterImage = holyWaterIcon.getImage().getScaledInstance(30, 50, Image.SCALE_SMOOTH);
+        holyWaterIcon = new ImageIcon(holyWaterImage);
+        JLabel holyWaterLabel = new JLabel(holyWaterIcon);
+        holyWaterLabel.setBounds(515, 360,
+                holyWaterIcon.getIconWidth(), holyWaterIcon.getIconHeight());
 
-        BlueGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        BlueGemLabel.addMouseListener(new MouseAdapter() {
+        holyWaterLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        holyWaterLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                player.addItemToPackage(11);
-                player.showTemporaryMessage("So beautiful...");
-                layeredPane.remove(BlueGemLabel);
+                player.addItemToPackage(2);
+                player.showTemporaryMessage("It hurts! But...");
+                layeredPane.remove(holyWaterLabel);
                 layeredPane.repaint();
             }
         });
 
-        layeredPane.add(BlueGemLabel, Integer.valueOf(2));
-    }
-
-
-    private void verifyKey2() {
-        if (player.hasItem(2)) {
-            JOptionPane.showMessageDialog(frame, "The door opens..");
-            player.addAccessTo("Level3_2");
-        } else {
-            player.showTemporaryMessage("Nothing happened...");
-        }
+        layeredPane.add(holyWaterLabel, Integer.valueOf(2));
     }
 
 }

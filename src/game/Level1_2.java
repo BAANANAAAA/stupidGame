@@ -72,16 +72,16 @@ public class Level1_2 extends Level {
 
     private void getSwordLabel() {
         ImageIcon swordIcon = new ImageIcon("figs/sword.PNG");
-        Image swordImage = swordIcon.getImage().getScaledInstance(60, 150, Image.SCALE_SMOOTH);
+        Image swordImage = swordIcon.getImage().getScaledInstance(50, 130, Image.SCALE_SMOOTH);
         swordIcon = new ImageIcon(swordImage);
         JLabel swordLabel = new JLabel(swordIcon);
-        swordLabel.setBounds(375, 420,
+        swordLabel.setBounds(605, 110,
                 swordIcon.getIconWidth(), swordIcon.getIconHeight());
 
         swordLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         swordLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                player.addItemToPackage(10);
+                player.addItemToPackage(1);
                 player.showTemporaryMessage("A sword, to whom?");
                 layeredPane.remove(swordLabel);
                 layeredPane.repaint();
