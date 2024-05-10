@@ -9,14 +9,14 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Level5 extends Level {
+public class Level5_1 extends Level {
     private final ArrayList<Integer> userSequence = new ArrayList<>();
     private final ArrayList<Integer> correctSequence = new ArrayList<>(Arrays.asList(1, 2, 1));
 
-    public Level5(JFrame mainFrame, Player player) {
+    public Level5_1(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         init();
-        player.insertLevel("Level5", this);
+        player.insertLevel("Level5_1", this);
     }
 
     public void init() {
@@ -64,8 +64,8 @@ public class Level5 extends Level {
     @Override
     public void handleKeyInput(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            if (player.hasAccessTo("Level1")) {
-                player.GoTo("Level1");
+            if (player.hasAccessTo("Level1_1")) {
+                player.GoTo("Level1_1");
             } else {
                 player.showTemporaryMessage("Access to Level1 is denied.");
             }
@@ -90,6 +90,13 @@ public class Level5 extends Level {
 
     private void resetSequence() {
         userSequence.clear();
+        layeredPane.requestFocus();
+        layeredPane.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                handleKeyInput(e);
+            }
+        });
     }
 
     private void getHammerLabel() {

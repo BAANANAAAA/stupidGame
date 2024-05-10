@@ -18,7 +18,10 @@ public class Player {
     private final JFrame gameFrame;
     private Level curLevel;
 
-    private static final HashSet<String> levelNames = new HashSet<>(Set.of("StartPage", "Level1", "Level2", "Level3", "Level4", "Level5", "Level6")); // 所有合法的level名，用于player.goto
+    private static final HashSet<String> levelNames = new HashSet<>(
+            Set.of("StartPage",
+                "Level1_1", "Level2_1", "Level3_1", "Level4_1", "Level5_1", "Level6_1",
+                "Level1_2", "Level2_2", "Level3_2", "Level4_2", "Level5_2", "Level6_2")); // 所有合法的level名，用于player.goto
     private final HashMap<String, Level> accessibleLevels = new HashMap<>();
     private final HashSet<String> unLockedLevels = new HashSet<>();
     private final HashSet<Integer> items = new HashSet<>();
@@ -135,6 +138,34 @@ public class Player {
         });
         timer.setRepeats(false);
         timer.start();
+    }
+
+    public void showParchmentHint(String message) {
+        JLayeredPane layeredPane = curLevel.getLayeredPane();
+
+        ImageIcon parchmentIcon = new ImageIcon("figs/parchment.PNG");
+        Image parchmentImage = parchmentIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // 调整大小为50x50
+        parchmentIcon = new ImageIcon(parchmentImage);
+        JLabel parchmentLabel = new JLabel(parchmentIcon);
+        parchmentLabel.setBounds(160,460, parchmentIcon.getIconWidth(), parchmentIcon.getIconHeight());
+
+        JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
+        messageLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        messageLabel.setForeground(Color.BLACK);
+        messageLabel.setBounds(0, 110, parchmentIcon.getIconWidth(), 30);
+
+        parchmentLabel.setLayout(null);
+        parchmentLabel.add(messageLabel);
+
+        layeredPane.add(parchmentLabel, JLayeredPane.POPUP_LAYER);
+
+        parchmentLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                layeredPane.remove(parchmentLabel);
+                layeredPane.repaint();
+            }
+        });
     }
 
 }

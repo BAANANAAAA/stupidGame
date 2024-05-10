@@ -19,8 +19,9 @@ class Main {
         mainFrame.add(chatPanel, BorderLayout.WEST);
         new Chat(chatPanel);
 
-//        // start game
+        // start game
         Player player = new Player(mainFrame); // 正常游戏可以直接开始，和聊天室登录无关，但会缺少线索
         new StartPage(mainFrame, player);
     }
+
 }

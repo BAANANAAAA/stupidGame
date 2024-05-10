@@ -9,13 +9,13 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Level4 extends Level {
+public class Level4_2 extends Level {
     private GemUnlockDialog gemDialog;
 
-    public Level4(JFrame mainFrame, Player player) {
+    public Level4_2(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         init();
-        player.insertLevel("Level4", this);
+        player.insertLevel("Level4_2", this);
     }
 
     public void init() {
@@ -41,8 +41,8 @@ public class Level4 extends Level {
     @Override
     public void handleKeyInput(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if (player.hasAccessTo("Level2")) {
-                player.GoTo("Level2");
+            if (player.hasAccessTo("Level2_2")) {
+                player.GoTo("Level2_2");
             } else {
                 player.showTemporaryMessage("Access to Level2 is denied.");
             }
@@ -133,7 +133,7 @@ public class Level4 extends Level {
                 }
             }
             JOptionPane.showMessageDialog(this, "To..the mirror...", "Unlocked", JOptionPane.INFORMATION_MESSAGE);
-            player.addAccessTo("Level6");
+            player.addAccessTo("Level6_2");
             layeredPane.requestFocus();
             layeredPane.addKeyListener(new KeyAdapter() {
                 @Override
@@ -150,6 +150,13 @@ public class Level4 extends Level {
                 slot.setIcon(null);
             }
             initializeInventory(player); // 重新初始化库存，将宝石放回固定位置
+            layeredPane.requestFocus();
+            layeredPane.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    handleKeyInput(e);
+                }
+            });
         }
 
     }

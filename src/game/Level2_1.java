@@ -6,12 +6,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Level2 extends Level {
+public class Level2_1 extends Level {
 
-    public Level2(JFrame mainFrame, Player player) {
+    public Level2_1(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         init();
-        player.insertLevel("Level2", this);
+        player.insertLevel("Level2_1", this);
     }
 
     public void init() {
@@ -40,24 +40,24 @@ public class Level2 extends Level {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
                 // 按左键跳转到Level4
-                if (player.hasAccessTo("Level4")) {
-                    player.GoTo("Level4");
+                if (player.hasAccessTo("Level4_1")) {
+                    player.GoTo("Level4_1");
                 } else {
                     player.showTemporaryMessage("Not accessible yet.");
                 }
                 break;
             case KeyEvent.VK_RIGHT:
                 // 按右键返回Level1
-                if (player.hasAccessTo("Level1")) {
-                    player.GoTo("Level1");
+                if (player.hasAccessTo("Level1_1")) {
+                    player.GoTo("Level1_1");
                 } else {
                     player.showTemporaryMessage("Access to Level1 is denied.");
                 }
                 break;
             case KeyEvent.VK_DOWN:
                 // 按下键前往Level3
-                if (player.hasAccessTo("Level3")) {
-                    player.GoTo("Level3");
+                if (player.hasAccessTo("Level3_1")) {
+                    player.GoTo("Level3_1");
                 } else {
                     player.showTemporaryMessage("Yes, a key is needed.");
                 }
@@ -90,7 +90,7 @@ public class Level2 extends Level {
     private void verifyKey2() {
         if (player.hasItem(2)) {
             JOptionPane.showMessageDialog(frame, "The door opens..");
-            player.addAccessTo("Level3");
+            player.addAccessTo("Level3_1");
         } else {
             player.showTemporaryMessage("Nothing happened...");
         }

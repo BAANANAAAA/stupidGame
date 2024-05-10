@@ -6,11 +6,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Level6 extends Level{
-    public Level6(JFrame mainFrame, Player player) {
+public class Level6_1 extends Level{
+    public Level6_1(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         init();
-        player.insertLevel("Level6", this);
+        player.insertLevel("Level6_1", this);
     }
 
     public void init() {
@@ -26,8 +26,8 @@ public class Level6 extends Level{
     @Override
     public void handleKeyInput(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            if (player.hasAccessTo("Level3")) {
-                player.GoTo("Level3");
+            if (player.hasAccessTo("Level3_1")) {
+                player.GoTo("Level3_1");
             } else {
                 player.showTemporaryMessage("Access to Level3 is denied.");
             }
@@ -54,7 +54,7 @@ public class Level6 extends Level{
 
     private void addMagicCircleInteraction() {
         JLabel magicCircleArea = new JLabel();
-        magicCircleArea.setBounds(400, 550, 100, 100);
+        magicCircleArea.setBounds(400, 600, 100, 100);
         magicCircleArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
         magicCircleArea.addMouseListener(new MouseAdapter() {
             @Override

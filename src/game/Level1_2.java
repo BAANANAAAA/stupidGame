@@ -6,18 +6,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Level1 extends Level {
+public class Level1_2 extends Level {
     private JPanel vasePanel;
     private final String correctPassword = "secret"; // Correct password to proceed to level2
     private String cookie = "";
 
-    public Level1(JFrame mainFrame, Player player) {
+    public Level1_2(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         this.player = player;
         init();
-        player.insertLevel("Level1", this);
-        player.addAccessTo("Level1");
-        player.addAccessTo("Level5");
+        player.insertLevel("Level1_2", this);
+        player.addAccessTo("Level1_2");
+        player.addAccessTo("Level5_2");
     }
 
     public void init() {
@@ -55,15 +55,15 @@ public class Level1 extends Level {
     public void handleKeyInput(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                if (player.hasAccessTo("Level2")) {
-                    player.GoTo("Level2");
+                if (player.hasAccessTo("Level2_2")) {
+                    player.GoTo("Level2_2");
                 } else {
                     player.showTemporaryMessage("Access to Level2 is denied.");
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                if (player.hasAccessTo("Level5")) {
-                    player.GoTo("Level5");
+                if (player.hasAccessTo("Level5_2")) {
+                    player.GoTo("Level5_2");
                 } else {
                     player.showTemporaryMessage("Access to Level5 is denied.");
                 }
@@ -162,10 +162,31 @@ public class Level1 extends Level {
             closeVasePanel();
             player.showTemporaryMessage("O! Look behind then.");
             cookie += "a";
-            player.addAccessTo("Level2");
+            player.addAccessTo("Level2_2");
         } else {
             player.showTemporaryMessage("Maybe not..");
         }
+    }
+
+    private void getHint1Label() {
+        ImageIcon RedGemIcon = new ImageIcon("figs/hint1.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        RedGemIcon = new ImageIcon(redGemImage);
+        JLabel RedGemLabel = new JLabel(RedGemIcon);
+        RedGemLabel.setBounds(52, 405,
+                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
+
+        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        RedGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(10);
+                player.showTemporaryMessage("OHHHH! Is that a...red gem?");
+                layeredPane.remove(RedGemLabel);
+                layeredPane.repaint();
+            }
+        });
+
+        layeredPane.add(RedGemLabel, Integer.valueOf(2));
     }
 
 }

@@ -6,12 +6,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Level3 extends Level {
+public class Level3_2 extends Level {
 
-    public Level3(JFrame mainFrame, Player player) {
+    public Level3_2(JFrame mainFrame, Player player) {
         super(mainFrame, player);
         init();
-        player.insertLevel("Level3", this);
+        player.insertLevel("Level3_2", this);
     }
 
     public void init() {
@@ -28,15 +28,15 @@ public class Level3 extends Level {
     public void handleKeyInput(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                if (player.hasAccessTo("Level2")) {
-                    player.GoTo("Level2");
+                if (player.hasAccessTo("Level2_2")) {
+                    player.GoTo("Level2_2");
                 } else {
                     player.showTemporaryMessage("Access to Level2 is denied.");
                 }
                 break;
             case KeyEvent.VK_DOWN:
-                if (player.hasAccessTo("Level6")) {
-                    player.GoTo("Level6");
+                if (player.hasAccessTo("Level6_2")) {
+                    player.GoTo("Level6_2");
                 } else {
                     player.showTemporaryMessage("Maybe there is even more room...but not now..?");
                 }
@@ -84,7 +84,7 @@ public class Level3 extends Level {
     private void verifyHammer() {
         if (player.hasItem(3)) {
             JOptionPane.showMessageDialog(frame, "Oh! You broke something...!");
-            player.addAccessTo("Level4");
+            player.addAccessTo("Level4_2");
         } else {
             player.showTemporaryMessage("Nothing happened..."); // Show message if the key doesn't exist
         }
