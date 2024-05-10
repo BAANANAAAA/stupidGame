@@ -7,7 +7,6 @@ import javax.swing.*;
 
 import java.text.SimpleDateFormat;
 
-
 public class Host extends ChatPanel implements Runnable {
 
     // Socket
