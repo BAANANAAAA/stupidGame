@@ -62,7 +62,7 @@ public class Level7 extends Level {
 
     private void showCompletionDialog() {
         JOptionPane.showMessageDialog(layeredPane, "Yes, you are they, they are you.", "TRUE END!", JOptionPane.INFORMATION_MESSAGE);
-        int action = JOptionPane.showOptionDialog(null, "Do you want to exit?", "Exit",
+        int action = JOptionPane.showOptionDialog(layeredPane, "Do you want to exit?", "Exit",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         if (action == JOptionPane.YES_OPTION) {
             System.exit(0);
