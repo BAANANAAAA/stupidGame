@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class Database {
 
-    private static final String url = "jdbc:postgresql://192.168.112.1:5432/JavaGame";
+    private static final String url = "jdbc:postgresql://localhost/JavaGame";
     private static final String user = "postgres";
     private static final String password = "0311";
     public static final String PORT = "12345";
@@ -36,9 +36,9 @@ public class Database {
         }
     }
 
-    public static User login(String username, String password) {
+    public static String login(String username, String password) {
         connect(); // 获取连接或者新建连接
-        User user = null;
+        String user = null;
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
             statement.setString(1, username);
@@ -46,7 +46,7 @@ public class Database {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int uid = resultSet.getInt("uid");
-                user = new User(uid, username, password);
+                user = uid + " " + username + " " + password;
             }
         } catch (SQLException e) {
             System.err.println("User login failed" + e.getMessage());

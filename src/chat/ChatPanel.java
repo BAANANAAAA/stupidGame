@@ -11,8 +11,10 @@ public class ChatPanel {
     JTextArea messageArea;
     JTextField inputField;
     JScrollBar scrollBar;
+    User user;
 
-    public ChatPanel(JPanel _panel) {
+    public ChatPanel(JPanel _panel, User _user) {
+        user = _user;
         panel = _panel;
         panel.removeAll();
         createDisplay();

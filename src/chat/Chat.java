@@ -2,18 +2,22 @@ package chat;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class Chat {
 
-    private JPanel panel;
+    private final JPanel panel;
     private User user;
 
     // Login
-    private JTextField usernameField;
-    private JTextField passwordField;
+    private final JTextField usernameField;
+    private final JTextField passwordField;
+    private final String server = "192.168.112.1";
+    private final int port = 12345;
 
     public Chat(JPanel _panel) {
         panel = _panel;
@@ -40,21 +44,18 @@ public class Chat {
         JButton loginButton = new JButton("Login");
         panel.add(loginButton, gbc);
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        loginButton.addActionListener(e -> {
 //                System.out.println("Login button clicked!");
-                String username = usernameField.getText();
-                String password = passwordField.getText();
+            String username = usernameField.getText();
+            String password = passwordField.getText();
 //                System.out.println("Username: " + username);
 //                System.out.println("Password: " + password);
-                tryLogin(username, password);
-            }
+            tryLogin(username, password);
         });
     }
 
     private void tryLogin(String username, String password) {
-        user = Database.login(username, password); // 获取自己的user对象
+        user = myLogin(username, password); // 获取自己的user对象
         if (user != null) {
             System.out.println("Logged in.");
             System.out.println("UID: " + user.getUid());
@@ -82,18 +83,14 @@ public class Chat {
         JButton createRoomButton = new JButton("Create Room");
         panel.add(createRoomButton, gbc);
 
-        createRoomButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Create Room button clicked!");
-                String identification = Database.createRoom(user.getUid());
-                if (identification != null) {
-                    System.out.println("Room created. ID: " + identification);
-                    // TODO: Enter chat room, start server
-                    new Server(panel, user);
-                } else {
-                    System.out.println("Failed to create room.");
-                }
+        createRoomButton.addActionListener(e -> {
+            System.out.println("Create Room button clicked!");
+            String identification = myCreateRoom(user.getUid());
+            if (identification != null) {
+                System.out.println("Room created. ID: " + identification);
+                new Host(panel, user);
+            } else {
+                System.out.println("Failed to create room.");
             }
         });
 
@@ -105,24 +102,84 @@ public class Chat {
         JButton joinRoomButton = new JButton("Join Room");
         panel.add(joinRoomButton, gbc);
 
-        joinRoomButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Join Room button clicked!");
-                String identification = identificationField.getText();
-                System.out.println(identification);
-                String ipAddress = Database.joinRoom(user.getUid(), identification);
-                if (ipAddress != null) {
-                    System.out.println("Room joined. ip: " + ipAddress);
-                    // TODO: Enter chat room, start client
-                    new Client(panel, user);
-                } else {
-                    System.out.println("Failed to join room.");
-                }
+        joinRoomButton.addActionListener(e -> {
+            System.out.println("Join Room button clicked!");
+            String identification = identificationField.getText();
+            System.out.println(identification);
+            String ipAddress = myJoinRoom(user.getUid(), identification);
+            if (ipAddress != null) {
+                System.out.println("Room joined. ip: " + ipAddress);
+                new Guest(panel, user);
+            } else {
+                System.out.println("Failed to join room.");
             }
         });
 
         panel.revalidate();
         panel.repaint();
+    }
+
+    private User myLogin(String username, String password) {
+        try {
+            Socket socket = new Socket(server, port);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+            // send request and get result
+            String request = "login " + username + " " + password;
+            out.println(request);
+            String response = in.readLine();
+            socket.close();
+
+            // 接收到的格式为 "uid username password" 生成对应User实例并返回
+            String[] parts = response.split(" ");
+            return new User(Integer.parseInt(parts[0]), parts[1], parts[2]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.err.println("Login failed.");
+        return null;
+    }
+
+    private String myCreateRoom(int uid) {
+        try {
+            Socket socket = new Socket(server, port);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+            // send request and get result
+            String request = "createRoom " + uid;
+            out.println(request);
+            String response = in.readLine();
+            socket.close();
+
+            // 接收到的格式为 "identification" 返回即可
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.err.println("Create failed.");
+        return null;
+    }
+
+    private String myJoinRoom(int uid, String identification) {
+        try {
+            Socket socket = new Socket(server, port);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+            // send request and get result
+            String request = "joinRoom " + uid + " " + identification;
+            out.println(request);
+            String response = in.readLine();
+            socket.close();
+
+            // 接收到的格式为 "ipAddress" 返回即可
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.err.println("Join failed.");
+        return null;
     }
 }

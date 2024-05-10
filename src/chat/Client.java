@@ -1,57 +1,31 @@
 package chat;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.security.*;
-import java.security.spec.X509EncodedKeySpec;
-import java.text.DateFormatSymbols;
+import java.io.*;
+import java.net.*;
 
-import javax.crypto.*;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Date;
-import javax.crypto.spec.SecretKeySpec;
-import javax.swing.*;
+public class Client {
+    public static void main(String[] args) {
+        try {
+            Socket socket = new Socket("192.168.112.1", 12345);
+            System.out.println("Connected to server.");
 
+            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-public class Client extends ChatPanel implements Runnable {
+            // 发送查询请求
+            System.out.println("Enter your request (e.g., add 10 20): ");
+            String request = userInput.readLine();
+            out.println(request);
 
-    // Socket
-    private static final int PORT_NUM = 9898;
-    ServerSocket serverSocket = null;
+            // 接收服务器的响应并打印
+            String response = in.readLine();
+            System.out.println("Server response: " + response);
 
-    // JPanel
-    JPanel panel;
-    User user;
-    JTextArea messageArea;
-    JTextField inputField;
-    JScrollBar scrollBar;
-
-    Date currentDate;
-    SimpleDateFormat sdf;
-    String dateFormat = "E MMM dd HH:mm:ss z yyyy";
-
-    public Client(JPanel _panel, User _user) {
-
-        super(_panel);
-        user = _user;
-
-//        Thread t = new Thread(this);
-//        t.start();
-    }
-
-    @Override
-    public void run() {
-
+            // 关闭连接
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
-
