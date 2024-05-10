@@ -106,7 +106,7 @@ public class Chat {
             String ipAddress = myJoinRoom(user.getUid(), identification);
             if (ipAddress != null) {
                 System.out.println("Room joined. ip: " + ipAddress);
-                new Guest(panel, user);
+                new Guest(panel, user, ipAddress);
             } else {
                 System.out.println("Failed to join room.");
             }
@@ -144,7 +144,7 @@ public class Chat {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-            // send request and get result TODO
+            // send request and get result
             String request = "createRoom " + uid + " " + getIP();
             out.println(request);
             String response = in.readLine();

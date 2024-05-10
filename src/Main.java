@@ -16,7 +16,6 @@ class Main {
         // 初始化 chatPanel
         JPanel chatPanel = new JPanel();
         chatPanel.setPreferredSize(new Dimension(200, 600));
-//        chatPanel.setBackground(Color.BLUE);
         mainFrame.add(chatPanel, BorderLayout.WEST);
         new Chat(chatPanel);
 
