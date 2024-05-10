@@ -17,7 +17,7 @@ public class Level1_2 extends Level {
         init();
         player.insertLevel("Level1_2", this);
         player.addAccessTo("Level1_2");
-        player.addAccessTo("Level5_2");
+        player.addAccessTo("Level2_2");
     }
 
     public void init() {
@@ -27,8 +27,7 @@ public class Level1_2 extends Level {
         layeredPane.add(label, Integer.valueOf(1));
 
         getRedGemLabel();
-        getHintButton();
-
+        getHint1Label();
         getKeyLabel();
     }
 
@@ -65,7 +64,7 @@ public class Level1_2 extends Level {
                 if (player.hasAccessTo("Level5_2")) {
                     player.GoTo("Level5_2");
                 } else {
-                    player.showTemporaryMessage("Access to Level5 is denied.");
+                    player.showTemporaryMessage("Something unseen blocked the way.");
                 }
                 break;
         }
@@ -92,97 +91,18 @@ public class Level1_2 extends Level {
         layeredPane.add(RedGemLabel, Integer.valueOf(2));
     }
 
-    private void getHintButton() {
-        JButton hintButton = new JButton();
-        hintButton.setBounds(380, 360, 50, 80);
-        hintButton.setOpaque(false);
-        hintButton.setContentAreaFilled(false);
-        hintButton.setBorderPainted(false);
-        hintButton.setFocusPainted(false);
-        hintButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        hintButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-               showVaseImage();
-            }
-        });
-
-        layeredPane.add(hintButton, Integer.valueOf(2));
-    }
-
-    private void showVaseImage() {
-        ImageIcon vaseImageIcon = new ImageIcon("figs/image.png");
-
-        Image vaseImage = vaseImageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        vaseImageIcon = new ImageIcon(vaseImage);
-
-        JLabel vaseLabel = new JLabel(vaseImageIcon);
-
-        vasePanel = new JPanel(new BorderLayout(10, 10));
-        vasePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        vasePanel.setBackground(Color.WHITE); // Set the background to white
-
-        vasePanel.setBounds(450, 280, 300,240);
-
-        JTextField passwordField = new JTextField(10); // Field for entering password
-        JButton submitButton = new JButton("Submit");
-
-        submitButton.addActionListener(e -> verifyPassword(passwordField.getText()));
-
-        vasePanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                closeVasePanel();
-            }
-        });
-
-        JPanel inputPanel = new JPanel();
-        inputPanel.setOpaque(false);
-        inputPanel.add(passwordField);
-        inputPanel.add(submitButton);
-
-        vasePanel.add(vaseLabel, BorderLayout.CENTER);
-        vasePanel.add(inputPanel, BorderLayout.SOUTH);
-
-        frame.getLayeredPane().add(vasePanel, JLayeredPane.MODAL_LAYER);
-        frame.getLayeredPane().moveToFront(vasePanel);
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    private void closeVasePanel() {
-        frame.getLayeredPane().remove(vasePanel);
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    private void verifyPassword(String enteredPassword) {
-        if (enteredPassword.equals(correctPassword)) {
-            closeVasePanel();
-            player.showTemporaryMessage("O! Look behind then.");
-            cookie += "a";
-            player.addAccessTo("Level2_2");
-        } else {
-            player.showTemporaryMessage("Maybe not..");
-        }
-    }
-
     private void getHint1Label() {
         ImageIcon RedGemIcon = new ImageIcon("figs/hint1.PNG");
-        Image redGemImage = RedGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         RedGemIcon = new ImageIcon(redGemImage);
         JLabel RedGemLabel = new JLabel(RedGemIcon);
-        RedGemLabel.setBounds(52, 405,
+        RedGemLabel.setBounds(200, 360,
                 RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
 
         RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         RedGemLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                player.addItemToPackage(10);
-                player.showTemporaryMessage("OHHHH! Is that a...red gem?");
-                layeredPane.remove(RedGemLabel);
-                layeredPane.repaint();
+                player.showParchmentHint("Three gems, \nor maybe more...?");
             }
         });
 

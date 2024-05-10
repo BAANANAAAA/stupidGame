@@ -144,15 +144,15 @@ public class Player {
         JLayeredPane layeredPane = curLevel.getLayeredPane();
 
         ImageIcon parchmentIcon = new ImageIcon("figs/parchment.PNG");
-        Image parchmentImage = parchmentIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // 调整大小为50x50
+        Image parchmentImage = parchmentIcon.getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH); // 调整大小为50x50
         parchmentIcon = new ImageIcon(parchmentImage);
         JLabel parchmentLabel = new JLabel(parchmentIcon);
-        parchmentLabel.setBounds(160,300, parchmentIcon.getIconWidth(), parchmentIcon.getIconHeight());
+        parchmentLabel.setBounds(0,80, parchmentIcon.getIconWidth(), parchmentIcon.getIconHeight());
 
-        JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
-        messageLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
-        messageLabel.setForeground(Color.BLACK);
-        messageLabel.setBounds(0, 110, parchmentIcon.getIconWidth(), 30);
+        JLabel messageLabel = new JLabel("<html>" + message.replace("\n", "<br>") + "</html>", SwingConstants.CENTER);
+        messageLabel.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
+        messageLabel.setForeground(new Color(82, 35, 15));
+        messageLabel.setBounds(0, 220, parchmentIcon.getIconWidth(), 100);
 
         parchmentLabel.setLayout(null);
         parchmentLabel.add(messageLabel);
