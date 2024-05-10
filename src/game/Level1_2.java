@@ -166,7 +166,8 @@ public class Level1_2 extends Level {
         RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         RedGemLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                player.showParchmentHint("Kiss of sun\nShall doom you,\nEmbodiment evil,\nto your demise\n\nYet\nVirtuous shall find rebirth");
+                player.showParchmentHint("Kiss of sun\nShall doom you,\nEmbodiment evil,\nto your demise\n\nYet\nVirtuous\n" +
+                        "shall find rebirth");
             }
         });
 

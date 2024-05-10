@@ -115,7 +115,7 @@ public class Player {
         dialogLabel.setBounds(160,460, dialogIcon.getIconWidth(), dialogIcon.getIconHeight());
 
         JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
-        messageLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        messageLabel.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
         messageLabel.setForeground(Color.BLACK);
         messageLabel.setBounds(0, 110, dialogIcon.getIconWidth(), 30);
 
@@ -150,9 +150,9 @@ public class Player {
         parchmentLabel.setBounds(0,80, parchmentIcon.getIconWidth(), parchmentIcon.getIconHeight());
 
         JLabel messageLabel = new JLabel("<html>" + message.replace("\n", "<br>") + "</html>", SwingConstants.CENTER);
-        messageLabel.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
+        messageLabel.setFont(new Font("Lucida Handwriting", Font.BOLD, 13));
         messageLabel.setForeground(new Color(82, 35, 15));
-        messageLabel.setBounds(0, 220, parchmentIcon.getIconWidth(), 100);
+        messageLabel.setBounds(0, 100, parchmentIcon.getIconWidth(), 400);
 
         parchmentLabel.setLayout(null);
         parchmentLabel.add(messageLabel);
