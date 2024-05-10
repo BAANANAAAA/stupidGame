@@ -16,7 +16,7 @@ public class Chat {
     // Login
     private final JTextField usernameField;
     private final JTextField passwordField;
-    private final String server = "192.168.112.1";
+    private final String server = "192.168.1.27";
     private final int port = 12345;
 
     public Chat(JPanel _panel) {

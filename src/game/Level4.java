@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -58,7 +59,7 @@ public class Level4 extends Level {
             super();
             setSize(400, 200);
             setLocationRelativeTo(parent);
-            setLayout(new BorderLayout()); // 更改为 BorderLayout
+            setLayout(new BorderLayout());
 
             gemIcons = new HashMap<>();
             loadAndResizeIcons();
@@ -70,15 +71,15 @@ public class Level4 extends Level {
                 slots[i] = new JLabel();
                 slots[i].setPreferredSize(new Dimension(64, 64));
                 slots[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                slotPanel.add(slots[i]); // 添加插槽到面板
+                slotPanel.add(slots[i]);
             }
-            add(slotPanel, BorderLayout.CENTER); // 将插槽面板添加到中央
+            add(slotPanel, BorderLayout.CENTER);
 
             initializeInventory(player);
 
             JButton resetButton = new JButton("Reset Gems");
             resetButton.addActionListener(e -> resetGems());
-            add(resetButton, BorderLayout.SOUTH); // 将按钮放置在窗体的南部
+            add(resetButton, BorderLayout.SOUTH);
         }
 
         private void setupGemIdMap() {
@@ -98,7 +99,7 @@ public class Level4 extends Level {
         }
 
         private void initializeInventory(Player player) {
-            JPanel gemPanel = new JPanel(new FlowLayout()); // 创建一个面板放置宝石
+            JPanel gemPanel = new JPanel(new FlowLayout());
             for (Map.Entry<String, Integer> entry : gemIdMap.entrySet()) {
                 String gemColor = entry.getKey();
                 int gemId = entry.getValue();
@@ -118,10 +119,10 @@ public class Level4 extends Level {
                             }
                         }
                     });
-                    gemPanel.add(gemLabel); // 将宝石添加到面板
+                    gemPanel.add(gemLabel);
                 }
             }
-            add(gemPanel, BorderLayout.NORTH); // 将宝石面板添加到窗体的北部
+            add(gemPanel, BorderLayout.NORTH);
         }
 
         private void checkIfUnlocked() {
@@ -131,8 +132,15 @@ public class Level4 extends Level {
                     return;
                 }
             }
-            JOptionPane.showMessageDialog(this, "Seems the chandelier is connected to somewhere.", "Unlocked", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "To..the mirror...", "Unlocked", JOptionPane.INFORMATION_MESSAGE);
             player.addAccessTo("Level6");
+            layeredPane.requestFocus();
+            layeredPane.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    handleKeyInput(e);
+                }
+            });
             dispose();
         }
 

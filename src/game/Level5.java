@@ -74,7 +74,7 @@ public class Level5 extends Level {
     private void handleButtonPress(int buttonId) {
         userSequence.add(buttonId);
         if (userSequence.equals(correctSequence)) {
-            JOptionPane.showMessageDialog(layeredPane, "O, yes, the orange gem...");
+            JOptionPane.showMessageDialog(layeredPane, "O, yes, the orange gem...the final one");
             player.addItemToPackage(14);
             userSequence.clear();
         }

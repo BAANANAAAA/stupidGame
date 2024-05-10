@@ -55,7 +55,6 @@ public class Level1 extends Level {
     public void handleKeyInput(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                // Check access and navigate
                 if (player.hasAccessTo("Level2")) {
                     player.GoTo("Level2");
                 } else {
@@ -63,14 +62,12 @@ public class Level1 extends Level {
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                // Check access and navigate
                 if (player.hasAccessTo("Level5")) {
                     player.GoTo("Level5");
                 } else {
                     player.showTemporaryMessage("Access to Level5 is denied.");
                 }
                 break;
-            // More key handling
         }
     }
 
@@ -115,16 +112,13 @@ public class Level1 extends Level {
     }
 
     private void showVaseImage() {
-        // Load the vase image
         ImageIcon vaseImageIcon = new ImageIcon("figs/image.png");
 
         Image vaseImage = vaseImageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        vaseImageIcon = new ImageIcon(vaseImage); // Convert back to ImageIcon for the label
+        vaseImageIcon = new ImageIcon(vaseImage);
 
-        // Create a label to show the vase image
         JLabel vaseLabel = new JLabel(vaseImageIcon);
 
-        // Create a panel to contain the vase label and the input field, with a little padding
         vasePanel = new JPanel(new BorderLayout(10, 10));
         vasePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         vasePanel.setBackground(Color.WHITE); // Set the background to white
@@ -143,17 +137,14 @@ public class Level1 extends Level {
             }
         });
 
-        // Create a panel for the input field and submit button
         JPanel inputPanel = new JPanel();
         inputPanel.setOpaque(false);
         inputPanel.add(passwordField);
         inputPanel.add(submitButton);
 
-        // Add components to the vase panel
         vasePanel.add(vaseLabel, BorderLayout.CENTER);
         vasePanel.add(inputPanel, BorderLayout.SOUTH);
 
-        // Add the vase panel to the frame's layered pane, so it can float over other components
         frame.getLayeredPane().add(vasePanel, JLayeredPane.MODAL_LAYER);
         frame.getLayeredPane().moveToFront(vasePanel);
         frame.revalidate();
@@ -168,7 +159,6 @@ public class Level1 extends Level {
 
     private void verifyPassword(String enteredPassword) {
         if (enteredPassword.equals(correctPassword)) {
-            // Correct password entered, proceed to level2
             closeVasePanel();
             JOptionPane.showMessageDialog(frame, "Yes, indeed..." + cookie, "Wow", JOptionPane.WARNING_MESSAGE);
             cookie += "a";

@@ -20,9 +20,7 @@ public class Level3 extends Level {
         label.setBounds(0, 0, contentWidth, contentHeight); // 覆盖整个窗口
         layeredPane.add(label, Integer.valueOf(1)); // 添加至低层
 
-        createSofaHintArea();
         createMirrorArea();
-
         getGreenGemLabel();
     }
 
@@ -46,33 +44,11 @@ public class Level3 extends Level {
         }
     }
 
-    private void createSofaHintArea() {
-        int sofaWidth = 100; // Width of the clickable area
-        int sofaHeight = 50; // Height of the clickable area
-        int sofaX = contentWidth - sofaWidth - 30; // Position X (from right minus width of the area and some margin)
-        int sofaY = contentHeight - sofaHeight - 30; // Position Y (from bottom minus height of the area and some margin)
-
-        JLabel sofaArea = new JLabel();
-        sofaArea.setBounds(sofaX, sofaY, sofaWidth, sofaHeight);
-        sofaArea.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change the cursor to indicate clickable area
-
-        // Add mouse listener to show hint when clicked
-        sofaArea.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                showHint();
-            }
-        });
-
-        layeredPane.add(sofaArea, Integer.valueOf(2)); // Add the clickable area above the background
-    }
-
     private void createMirrorArea() {
         JLabel mirrorArea = new JLabel();
         mirrorArea.setBounds(400, 150, 100, 300);
-        mirrorArea.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change the cursor to indicate clickable area
+        mirrorArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Add mouse listener to show hint when clicked
         mirrorArea.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -80,7 +56,7 @@ public class Level3 extends Level {
             }
         });
 
-        layeredPane.add(mirrorArea, Integer.valueOf(2)); // Add the clickable area above the background
+        layeredPane.add(mirrorArea, Integer.valueOf(2));
     }
 
     private void getGreenGemLabel() {
