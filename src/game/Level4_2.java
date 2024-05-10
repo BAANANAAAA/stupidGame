@@ -63,7 +63,7 @@ public class Level4_2 extends Level {
     }
 
     private void getBlueGemHintLabel() {
-        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint1.PNG");
+        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint3.PNG");
         Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         RedGemIcon = new ImageIcon(redGemImage);
         JLabel RedGemLabel = new JLabel(RedGemIcon);

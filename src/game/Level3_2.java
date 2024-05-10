@@ -60,11 +60,11 @@ public class Level3_2 extends Level {
     }
 
     private void getGreenGemHintLabel() {
-        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint1.PNG");
+        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint4.PNG");
         Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         RedGemIcon = new ImageIcon(redGemImage);
         JLabel RedGemLabel = new JLabel(RedGemIcon);
-        RedGemLabel.setBounds(150, 360,
+        RedGemLabel.setBounds(190, 230,
                 RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
 
         RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));

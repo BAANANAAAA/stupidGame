@@ -100,17 +100,17 @@ public class Level5_2 extends Level {
     }
 
     private void getOrangeGemHintLabel() {
-        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint1.PNG");
-        Image redGemImage = RedGemIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon RedGemIcon = new ImageIcon("figs/wallhint5.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         RedGemIcon = new ImageIcon(redGemImage);
         JLabel RedGemLabel = new JLabel(RedGemIcon);
-        RedGemLabel.setBounds(300, 360,
+        RedGemLabel.setBounds(280, 180,
                 RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
 
         RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         RedGemLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                player.showParchmentHint("In the dance of light and shadow\nGo to bright, dim, then bright\nTo unveil the jewel kissed by the sun");
+                player.showParchmentHint("In the dance of\n  light and shadow\nGo to bright, dim,\n  then bright\nTo unveil\n  the kiss of sun");
             }
         });
 
