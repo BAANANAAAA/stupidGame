@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,9 +15,6 @@ public class Level3 extends Level {
     }
 
     public void init() {
-//        layeredPane = new JLayeredPane();
-//        layeredPane.setPreferredSize(frame.getSize()); // 设定与frame相同的尺寸
-
         ImageIcon imageIcon = new ImageIcon("figs/level3.PNG"); // 加载图片
         JLabel label = new JLabel(imageIcon);
         label.setBounds(0, 0, contentWidth, contentHeight); // 覆盖整个窗口
@@ -26,6 +24,28 @@ public class Level3 extends Level {
         createMirrorArea();
         JLabel hammerLabel = getHammerLabel();
         layeredPane.add(hammerLabel, Integer.valueOf(2)); // 添加至中层
+
+        getGreenGemLabel();
+    }
+
+    @Override
+    public void handleKeyInput(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                if (player.hasAccessTo("Level2")) {
+                    player.GoTo("Level2");
+                } else {
+                    player.showTemporaryMessage("Access to Level2 is denied.");
+                }
+                break;
+            case KeyEvent.VK_DOWN:
+                if (player.hasAccessTo("Level6")) {
+                    player.GoTo("Level6");
+                } else {
+                    player.showTemporaryMessage("Access to Level6 is denied.");
+                }
+                break;
+        }
     }
 
     private void createSofaHintArea() {
@@ -50,13 +70,8 @@ public class Level3 extends Level {
     }
 
     private void createMirrorArea() {
-        int mirrorWidth = 200; // Width of the clickable area
-        int mirrorHeight = 200; // Height of the clickable area
-        int sofaX = contentWidth - mirrorWidth - 550; // Position X (from right minus width of the area and some margin)
-        int sofaY = contentHeight - mirrorHeight - 200; // Position Y (from bottom minus height of the area and some margin)
-
         JLabel mirrorArea = new JLabel();
-        mirrorArea.setBounds(sofaX, sofaY, mirrorWidth, mirrorHeight);
+        mirrorArea.setBounds(400, 150, 100, 300);
         mirrorArea.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change the cursor to indicate clickable area
 
         // Add mouse listener to show hint when clicked
@@ -89,10 +104,32 @@ public class Level3 extends Level {
         return keyLabel;
     }
 
+    private void getGreenGemLabel() {
+        ImageIcon GreenGemIcon = new ImageIcon("figs/green_gem.PNG");
+        Image BlueGemImage = GreenGemIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        GreenGemIcon = new ImageIcon(BlueGemImage);
+        JLabel GreenGemLabel = new JLabel(GreenGemIcon);
+        GreenGemLabel.setBounds(98,
+                280,
+                GreenGemIcon.getIconWidth(), GreenGemIcon.getIconHeight());
+
+        GreenGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        GreenGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(12);
+                player.showTemporaryMessage("Wait..You picked a green gem!");
+                layeredPane.remove(GreenGemLabel);
+                layeredPane.repaint();
+            }
+        });
+
+        layeredPane.add(GreenGemLabel, Integer.valueOf(2));
+    }
+
     private void verifyHammer() {
         if (player.hasItem(3)) {
             JOptionPane.showMessageDialog(frame, "Oh! You broke something...!");
-            player.GoTo("Level4");
+            player.addAccessTo("Level4");
         } else {
             player.showTemporaryMessage("Nothing happened..."); // Show message if the key doesn't exist
         }

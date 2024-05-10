@@ -2,12 +2,12 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Level1 extends Level {
-
-    private JPanel vasePanel; // Panel to display the vase image
+    private JPanel vasePanel;
     private final String correctPassword = "secret"; // Correct password to proceed to level2
     private String cookie = "";
 
@@ -16,43 +16,80 @@ public class Level1 extends Level {
         this.player = player;
         init();
         player.insertLevel("Level1", this);
+        player.addAccessTo("Level1");
     }
 
     public void init() {
-        // Load the background image
         ImageIcon backgroundImage = new ImageIcon("figs/level1.PNG");
-//        layeredPane = new JLayeredPane() {
-//            @Override
-//            protected void paintComponent(Graphics g) {
-//                super.paintComponent(g);
-//                g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
-//            }
-//        };
-//        layeredPane.setPreferredSize(frame.getSize());
         JLabel label = new JLabel(backgroundImage);
         label.setBounds(0, 0, contentWidth, contentHeight);
         layeredPane.add(label, Integer.valueOf(1));
 
-        layeredPane.setLayout(new BorderLayout());
+        getRedGemLabel();
+        getHintButton();
+    }
 
-        // Setup hint label but don't add it yet
-        // Label to display hints at the bottom of the screen
-        JLabel hintLabel = new JLabel(" ", SwingConstants.CENTER);
-        hintLabel.setOpaque(true);
-        hintLabel.setBackground(Color.WHITE);
-        hintLabel.setPreferredSize(new Dimension(contentWidth, 30));
-        hintLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        layeredPane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Assuming the clickable area is in the center of the screen
-                Rectangle vaseArea = new Rectangle(350, 250, 100, 100);
-                if (vaseArea.contains(e.getPoint())) {
-                    showVaseImage(); // Show vase image on the same frame
+    @Override
+    public void handleKeyInput(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                // Check access and navigate
+                if (player.hasAccessTo("Level2")) {
+                    player.GoTo("Level2");
+                } else {
+                    player.showTemporaryMessage("Access to Level2 is denied.");
                 }
+                break;
+            case KeyEvent.VK_RIGHT:
+                // Check access and navigate
+                if (player.hasAccessTo("Level5")) {
+                    player.GoTo("Level5");
+                } else {
+                    player.showTemporaryMessage("Access to Level5 is denied.");
+                }
+                break;
+            // More key handling
+        }
+    }
+
+    private void getRedGemLabel() {
+        ImageIcon RedGemIcon = new ImageIcon("figs/red_gem.PNG");
+        Image redGemImage = RedGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        RedGemIcon = new ImageIcon(redGemImage);
+        JLabel RedGemLabel = new JLabel(RedGemIcon);
+        RedGemLabel.setBounds(52, 405,
+                RedGemIcon.getIconWidth(), RedGemIcon.getIconHeight());
+
+        RedGemLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        RedGemLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                player.addItemToPackage(10);
+                player.showTemporaryMessage("OHHHH! Is that a...red gem?");
+                layeredPane.remove(RedGemLabel);
+                layeredPane.repaint();
             }
         });
+
+        layeredPane.add(RedGemLabel, Integer.valueOf(2));
+    }
+
+    private void getHintButton() {
+        JButton hintButton = new JButton();
+        hintButton.setBounds(380, 360, 50, 80);
+        hintButton.setOpaque(false);
+        hintButton.setContentAreaFilled(false);
+        hintButton.setBorderPainted(false);
+        hintButton.setFocusPainted(false);
+        hintButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        hintButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               showVaseImage();
+            }
+        });
+
+        layeredPane.add(hintButton, Integer.valueOf(2));
     }
 
     private void showVaseImage() {
@@ -120,12 +157,12 @@ public class Level1 extends Level {
             closeVasePanel();
             JOptionPane.showMessageDialog(frame, "Yes, indeed..." + cookie, "Wow", JOptionPane.WARNING_MESSAGE);
             cookie += "a";
-            player.GoTo("Level2");
+//            player.GoTo("Level2");
+            player.addAccessTo("Level2");
         } else {
             // Incorrect password, show error message
             JOptionPane.showMessageDialog(frame, "Incorrect password!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 
 }
