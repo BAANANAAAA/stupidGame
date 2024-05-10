@@ -2,10 +2,7 @@ package chat;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class Chat {
@@ -147,8 +144,8 @@ public class Chat {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-            // send request and get result
-            String request = "createRoom " + uid;
+            // send request and get result TODO
+            String request = "createRoom " + uid + " " + getIP();
             out.println(request);
             String response = in.readLine();
             socket.close();
@@ -181,5 +178,16 @@ public class Chat {
         }
         System.err.println("Join failed.");
         return null;
+    }
+
+    public static String getIP() {
+        String firstLine = null;
+        String filePath = "/src/chat/WLAN_IP.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + filePath))) {
+            firstLine = br.readLine(); // 读取第一行
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+        return firstLine;
     }
 }

@@ -9,7 +9,7 @@ public class Database {
     private static final String url = "jdbc:postgresql://localhost/JavaGame";
     private static final String user = "postgres";
     private static final String password = "0311";
-    public static final String PORT = "12345";
+    public static final String PORT = "12333";
 
     // 单一连接，执行过程中仅使用该连接
     private static Connection connection = null;
@@ -54,24 +54,21 @@ public class Database {
         return user;
     }
 
-    public static String createRoom(int player1Uid) {
+    public static String createRoom(int player1Uid, String ip) {
         // 创建房间，返回一个房间编号
         connect();
         String identification = null;
         try {
-            InetAddress localHost = InetAddress.getLocalHost();
-            String ipAddress = localHost.getHostAddress();
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO rooms (player1, status, ip_address) " +
                             "VALUES (?, 'open', ?) RETURNING identification");
             statement.setInt(1, player1Uid);
-            statement.setString(2, ipAddress);
+            statement.setString(2, ip);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 identification = resultSet.getString("identification");
-                System.out.println("try to get id " + identification);
             }
-        } catch (SQLException | UnknownHostException e) {
+        } catch (SQLException e) {
             System.err.println("Room creation failed." + e.getMessage());
         }
         return identification;

@@ -50,9 +50,10 @@ public class Server {
                     return Database.login(parts[1], parts[2]);
                 }
                 case "createRoom" -> {
-                    return Database.createRoom(Integer.parseInt(parts[1]));
+//                    System.out.println(parts[2]);
+                    return Database.createRoom(Integer.parseInt(parts[1]), parts[2]);
                 }
-                case "createUse" -> {
+                case "joinRoom" -> {
                     return Database.joinRoom(Integer.parseInt(parts[1]), parts[2]);
                 }
             }
