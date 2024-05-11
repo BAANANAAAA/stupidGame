@@ -39,6 +39,26 @@ public class Level4_1 extends Level {
     }
 
     @Override
+    void goUp() {
+
+    }
+
+    @Override
+    void goDown() {
+
+    }
+
+    @Override
+    void goRight() {
+
+    }
+
+    @Override
+    void goLeft() {
+
+    }
+
+    @Override
     public void handleKeyInput(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (player.hasAccessTo("Level2_1")) {

@@ -43,6 +43,26 @@ public class Level7 extends Level {
         layeredPane.add(label, Integer.valueOf(1));
     }
 
+    @Override
+    void goUp() {
+
+    }
+
+    @Override
+    void goDown() {
+
+    }
+
+    @Override
+    void goRight() {
+
+    }
+
+    @Override
+    void goLeft() {
+
+    }
+
     private boolean isInMirror(int x, int y) {
         int mirrorCenterX = contentWidth / 2;
         int mirrorCenterY = contentHeight / 2;

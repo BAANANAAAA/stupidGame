@@ -24,6 +24,26 @@ public class Level6_2 extends Level{
         addMagicCircleInteraction();
     }
 
+    @Override
+    void goUp() {
+
+    }
+
+    @Override
+    void goDown() {
+
+    }
+
+    @Override
+    void goRight() {
+
+    }
+
+    @Override
+    void goLeft() {
+
+    }
+
     private void getCrossLabel() {
         ImageIcon crossIcon = new ImageIcon("figs/cross.PNG");
         Image crossImage = crossIcon.getImage().getScaledInstance(40, 95, Image.SCALE_SMOOTH);

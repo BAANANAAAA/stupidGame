@@ -38,6 +38,26 @@ public class Level2_2 extends Level {
     }
 
     @Override
+    void goUp() {
+
+    }
+
+    @Override
+    void goDown() {
+
+    }
+
+    @Override
+    void goRight() {
+
+    }
+
+    @Override
+    void goLeft() {
+
+    }
+
+    @Override
     public void handleKeyInput(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
