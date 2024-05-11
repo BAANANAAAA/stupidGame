@@ -74,6 +74,34 @@ public class Level1_2 extends Level {
         }
     }
 
+    @Override
+    void goUp() {
+
+    }
+
+    @Override
+    void goDown() {
+
+    }
+
+    @Override
+    void goRight() {
+        if (player.hasAccessTo("Level5_2")) {
+            player.GoTo("Level5_2");
+        } else {
+            player.showTemporaryMessage("Something unseen blocked the way.");
+        }
+    }
+
+    @Override
+    void goLeft() {
+        if (player.hasAccessTo("Level2_2")) {
+            player.GoTo("Level2_2");
+        } else {
+            player.showTemporaryMessage("Access to Level2 is denied.");
+        }
+    }
+
     private void getSwordLabel() {
         ImageIcon swordIcon = new ImageIcon("figs/sword.PNG");
         Image swordImage = swordIcon.getImage().getScaledInstance(50, 130, Image.SCALE_SMOOTH);
