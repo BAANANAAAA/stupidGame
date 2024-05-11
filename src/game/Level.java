@@ -13,7 +13,7 @@ abstract public class Level extends JPanel {
 
     public static final int contentWidth = 800;
     public static final int contentHeight = 750;
-    private static final int BORDER_WIDTH = 60;
+    private static final int BORDER_WIDTH = 40;
 
 
     public Level(JFrame mainFrame, Player player) {
@@ -32,7 +32,7 @@ abstract public class Level extends JPanel {
                 if (y <= BORDER_WIDTH) {
                     System.out.println("up");
                     goUp();
-                } else if (y >= contentHeight - BORDER_WIDTH) {
+                } else if (y >= contentHeight - 2*BORDER_WIDTH) {
                     System.out.println("down");
                     goDown();
                 } else if (x >= contentWidth - BORDER_WIDTH) {
