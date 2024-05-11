@@ -71,6 +71,34 @@ public class Level1_1 extends Level {
         }
     }
 
+    @Override
+    void goUp() {
+
+    }
+
+    @Override
+    void goDown() {
+
+    }
+
+    @Override
+    void goRight() {
+        if (player.hasAccessTo("Level5_1")) {
+            player.GoTo("Level5_1");
+        } else {
+            player.showTemporaryMessage("Access to Level5 is denied.");
+        }
+    }
+
+    @Override
+    void goLeft() {
+        if (player.hasAccessTo("Level2_1")) {
+            player.GoTo("Level2_1");
+        } else {
+            player.showTemporaryMessage("Access to Level2 is denied.");
+        }
+    }
+
     private void getRedGemLabel() {
         ImageIcon RedGemIcon = new ImageIcon("figs/red_gem.PNG");
         Image redGemImage = RedGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);

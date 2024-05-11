@@ -52,6 +52,26 @@ public class StartPage extends Level {
 
     }
 
+    @Override
+    void goUp() {
+
+    }
+
+    @Override
+    void goDown() {
+
+    }
+
+    @Override
+    void goRight() {
+
+    }
+
+    @Override
+    void goLeft() {
+
+    }
+
     private JLabel getButton(int x, int y, String msg){
         ImageIcon GlassButtonIcon = new ImageIcon("figs/button.PNG");
         Image GlassButtonImage = GlassButtonIcon.getImage().getScaledInstance(200, 50, Image.SCALE_SMOOTH);
