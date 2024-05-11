@@ -65,6 +65,38 @@ public class Level2_1 extends Level {
         }
     }
 
+    @Override
+    void goUp() {
+
+    }
+
+    @Override
+    void goDown() {
+        if (player.hasAccessTo("Level3_1")) {
+            player.GoTo("Level3_1");
+        } else {
+            player.showTemporaryMessage("Yes, a key is needed.");
+        }
+    }
+
+    @Override
+    void goRight() {
+        if (player.hasAccessTo("Level1_1")) {
+            player.GoTo("Level1_1");
+        } else {
+            player.showTemporaryMessage("Access to Level1 is denied.");
+        }
+    }
+
+    @Override
+    void goLeft() {
+        if (player.hasAccessTo("Level4_1")) {
+            player.GoTo("Level4_1");
+        } else {
+            player.showTemporaryMessage("Not accessible yet.");
+        }
+    }
+
     private void getBlueGemLabel() {
         ImageIcon BlueGemIcon = new ImageIcon("figs/blue_gem.PNG");
         Image BlueGemImage = BlueGemIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);

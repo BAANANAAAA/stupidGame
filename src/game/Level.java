@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 
 abstract public class Level extends JPanel {
     public JFrame frame; // 所有level共享一个显示frame
@@ -15,6 +14,7 @@ abstract public class Level extends JPanel {
     public static final int contentWidth = 800;
     public static final int contentHeight = 750;
     private static final int BORDER_WIDTH = 60;
+
 
     public Level(JFrame mainFrame, Player player) {
         this.frame = mainFrame;
@@ -44,18 +44,27 @@ abstract public class Level extends JPanel {
                 System.out.println(x + " " + y);
                 if (y <= BORDER_WIDTH) {
                     System.out.println("up");
+                    goUp();
                 } else if (y >= contentHeight - BORDER_WIDTH) {
                     System.out.println("down");
+                    goDown();
                 } else if (x >= contentWidth - BORDER_WIDTH) {
                     System.out.println("right");
+                    goRight();
                 } else if (x <= BORDER_WIDTH) {
                     System.out.println("left");
+                    goLeft();
                 }
             }
         });
     }
 
     abstract void init(); // 函数应该设置所有的ui图片和listener，放进layeredPane
+
+    abstract void goUp();
+    abstract void goDown();
+    abstract void goRight();
+    abstract void goLeft();
 
     public JLayeredPane getLayeredPane() {
         return layeredPane;
