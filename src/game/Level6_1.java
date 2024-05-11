@@ -25,12 +25,18 @@ public class Level6_1 extends Level{
 
     @Override
     void goUp() {
-
+        if (player.hasAccessTo("Level3_1")) {
+            player.GoTo("Level3_1");
+        } else {
+            player.showTemporaryMessage("Access to Level3 is denied.");
+        }
     }
 
     @Override
     void goDown() {
-
+        if (player.hasAccessTo("Level7")) {
+            player.GoTo("Level7");
+        }
     }
 
     @Override

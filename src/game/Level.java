@@ -46,7 +46,7 @@ abstract public class Level extends JPanel {
                 if (y <= BORDER_WIDTH) {
                     System.out.println("up");
                     goUp();
-                } else if (y >= contentHeight - BORDER_WIDTH) {
+                } else if (y >= contentHeight - 2*BORDER_WIDTH) {
                     System.out.println("down");
                     goDown();
                 } else if (x >= contentWidth - BORDER_WIDTH) {

@@ -50,7 +50,11 @@ public class Level4_1 extends Level {
 
     @Override
     void goRight() {
-
+        if (player.hasAccessTo("Level2_1")) {
+            player.GoTo("Level2_1");
+        } else {
+            player.showTemporaryMessage("Access to Level2 is denied.");
+        }
     }
 
     @Override

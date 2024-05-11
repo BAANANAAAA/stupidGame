@@ -26,12 +26,20 @@ public class Level3_2 extends Level {
 
     @Override
     void goUp() {
-
+        if (player.hasAccessTo("Level2_2")) {
+            player.GoTo("Level2_2");
+        } else {
+            player.showTemporaryMessage("Access to Level2 is denied.");
+        }
     }
 
     @Override
     void goDown() {
-
+        if (player.hasAccessTo("Level6_2")) {
+            player.GoTo("Level6_2");
+        } else {
+            player.showTemporaryMessage("Maybe there is even more room...but not now..?");
+        }
     }
 
     @Override
