@@ -21,7 +21,6 @@ public class StartPage extends Level {
         background.setBounds(0, 0, contentWidth, contentHeight);
         layeredPane.add(background, Integer.valueOf(1));
 
-
         JLabel startButton1 = getButton(160, 370, "Start As Player 1");
         layeredPane.add(startButton1, Integer.valueOf(2));
         startButton1.addMouseListener(new MouseAdapter() {
@@ -52,25 +51,25 @@ public class StartPage extends Level {
 
     }
 
-    @Override
-    void goUp() {
-
-    }
-
-    @Override
-    void goDown() {
-
-    }
-
-    @Override
-    void goRight() {
-
-    }
-
-    @Override
-    void goLeft() {
-
-    }
+//    @Override
+//    void goUp() {
+//
+//    }
+//
+//    @Override
+//    void goDown() {
+//
+//    }
+//
+//    @Override
+//    void goRight() {
+//
+//    }
+//
+//    @Override
+//    void goLeft() {
+//
+//    }
 
     private JLabel getButton(int x, int y, String msg){
         ImageIcon GlassButtonIcon = new ImageIcon("figs/button.PNG");

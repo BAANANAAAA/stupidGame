@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 public class Level1_1 extends Level {
     private JPanel vasePanel;
-    private final String correctPassword = "trinity"; // Correct password to proceed to level2
+    private final String correctPassword = "TRINITY"; // Correct password to proceed to level2
     private String cookie = "";
 
     public Level1_1(JFrame mainFrame, Player player) {
@@ -31,6 +31,7 @@ public class Level1_1 extends Level {
 
         getKeyLabel();
     }
+
 
     private void getKeyLabel() {
         ImageIcon keyIcon = new ImageIcon("figs/key1.PNG");
@@ -71,33 +72,33 @@ public class Level1_1 extends Level {
         }
     }
 
-    @Override
-    void goUp() {
-
-    }
-
-    @Override
-    void goDown() {
-
-    }
-
-    @Override
-    void goRight() {
-        if (player.hasAccessTo("Level5_1")) {
-            player.GoTo("Level5_1");
-        } else {
-            player.showTemporaryMessage("Access to Level5 is denied.");
-        }
-    }
-
-    @Override
-    void goLeft() {
-        if (player.hasAccessTo("Level2_1")) {
-            player.GoTo("Level2_1");
-        } else {
-            player.showTemporaryMessage("Access to Level2 is denied.");
-        }
-    }
+//    @Override
+//    void goUp() {
+//
+//    }
+//
+//    @Override
+//    void goDown() {
+//
+//    }
+//
+//    @Override
+//    void goRight() {
+//        if (player.hasAccessTo("Level5_1")) {
+//            player.GoTo("Level5_1");
+//        } else {
+//            player.showTemporaryMessage("Access to Level5 is denied.");
+//        }
+//    }
+//
+//    @Override
+//    void goLeft() {
+//        if (player.hasAccessTo("Level2_1")) {
+//            player.GoTo("Level2_1");
+//        } else {
+//            player.showTemporaryMessage("Access to Level2 is denied.");
+//        }
+//    }
 
     private void getRedGemLabel() {
         ImageIcon RedGemIcon = new ImageIcon("figs/red_gem.PNG");
@@ -140,7 +141,7 @@ public class Level1_1 extends Level {
     }
 
     private void showVaseImage() {
-        ImageIcon vaseImageIcon = new ImageIcon("figs/code.PNG");
+        ImageIcon vaseImageIcon = new ImageIcon("figs/code.png");
 
         Image vaseImage = vaseImageIcon.getImage().getScaledInstance(280, 200, Image.SCALE_SMOOTH);
         vaseImageIcon = new ImageIcon(vaseImage);
